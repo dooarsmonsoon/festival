@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Performers | Dooars Monsoon Music & Cultural Festival
+    </title>
+    <link rel="icon" type="image/png" href="images/logo2.png">
+
+    <!-- Bootstrap 5.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+
+    <style>
+
+        /* =====================================================
+           PERFORMER PAGE
+        ===================================================== */
+
+        .performer-hero {
+
+            padding: 80px 0 45px;
+
+            text-align: center;
+
+        }
+
+
+
+        .performer-hero h1 {
+
+            font-weight: 800;
+
+            margin-top: 8px;
+
+        }
+
+
+        .performer-hero p {
+
+            max-width: 650px;
+
+            margin: 8px auto 0;
+
+        }
+
+
+        /* =====================================================
+           FILTER AREA
+        ===================================================== */
+
+        .performer-filter {
+
+            background: rgba(255, 255, 255, 0.426);
+
+            backdrop-filter: blur(10px);
+
+            border-radius: 20px;
+
+            padding: 18px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,.08);
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* =====================================================
+           PERFORMER CARD
+        ===================================================== */
+
+        /* .performer-card {
+
+            height: 100%;
+
+            border: 0;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            background: rgba(208, 202, 202, 0.9);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.08);
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+
+        } */
+
+        .performer-card {
+    height: 100%;
+    border: 0;
+     
+    background: linear-gradient(
+    135deg,
+    rgba(208, 202, 202, 0.95) 0%,
+    rgba(245, 240, 220, 0.9) 50%,
+    rgba(255, 255, 255, 0.85) 100%
+);
+
+    /* Plateau shape */
+    clip-path: polygon(
+        8% 0%,
+        92% 0%,
+        100% 10%,
+        100% 90%,
+        92% 100%,
+        8% 100%,
+        0% 90%,
+        0% 10%
+    );
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .08);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+    }
+
+
+        .performer-card:hover {
+
+            transform:
+                translateY(-8px);
+
+            box-shadow:
+                0 18px 45px rgba(0,0,0,.15);
+
+        }
+
+
+        /* =====================================================
+           IMAGE
+        ===================================================== */
+
+        .performer-image-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 1 / 1;
+
+            overflow: hidden;
+
+            background: #eee;
+
+        }
+
+
+        .performer-image {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform .5s ease;
+
+        }
+
+
+        .performer-card:hover
+        .performer-image {
+
+            transform:
+                scale(1.06);
+
+        }
+
+
+        /* =====================================================
+           TYPE BADGE
+        ===================================================== */
+
+        .performer-type {
+
+            position: absolute;
+
+            left: 14px;
+
+            bottom: 14px;
+
+            background:
+                rgba(0,0,0,.72);
+
+            color: #fff;
+
+            padding:
+                6px 12px;
+
+            border-radius: 50px;
+
+            font-size: .8rem;
+
+            font-weight: 600;
+
+            backdrop-filter:
+                blur(5px);
+
+        }
+
+
+        /* =====================================================
+           CARD BODY
+        ===================================================== */
+
+        .performer-card-body {
+
+            padding: 20px;
+
+        }
+
+
+        .performer-name {
+
+            font-weight: 800;
+
+            font-size: 1.25rem;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .performer-genre {
+
+            font-size: .85rem;
+
+            font-weight: 600;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .performer-description {
+
+            color: #666;
+
+            font-size: .92rem;
+
+            line-height: 1.6;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 4;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        #performerLoading {
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        #performerEmpty {
+
+            display: none;
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           RESULT COUNT
+        ===================================================== */
+
+        .result-count {
+
+            font-size: .9rem;
+
+            color: #666;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 576px) {
+
+            .performer-hero {
+
+                padding-top: 20px;
+
+            }
+
+            .performer-hero h1 {
+
+                font-size: 1.8rem;
+
+            }
+
+            .performer-card-body {
+
+                padding: 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     DECORATIVE STICK BACKGROUND
+========================================================= -->
+
+<div id="stick-bg">
+
+    <img
+        src="images/stick.png"
+        class="stick stick-left-1"
+        alt="">
+
+    <img
+        src="images/stick.png"
+        class="stick stick-left-2"
+        alt="">
+
+
+    <img
+        src="images/stick.png"
+        class="stick stick-right-1"
+        alt="">
+
+    <img
+        src="images/stick.png"
+        class="stick stick-right-2"
+        alt="">
+
+</div>
+
+
+<!-- =========================================================
+     WARLI BACKGROUND
+========================================================= -->
+
+<div id="warli-bg"></div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<div id="site-header"></div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="container main-content">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="performer-hero">
+
+        <h1>
+
+            Meet Our Participants
+
+        </h1>
+
+
+        <p class="text-muted">
+
+            Discover the talented musicians, artists and
+            performers joining us at the Dooars Monsoon
+            Music & Cultural Festival.
+
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         FILTER
+    ====================================================== -->
+
+    <section class="card performer-filter">
+
+        <div class="row g-3 align-items-center">
+
+
+            <!-- SEARCH -->
+
+            <div class="col-12 col-lg-4">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+
+                        <i class="bi bi-search"></i>
+
+                    </span>
+
+                    <input
+                        type="search"
+                        id="performerSearch"
+                        class="form-control"
+                        placeholder="Search performer...">
+
+                </div>
+
+            </div>
+
+
+            <!-- FESTIVAL -->
+
+            <div class="col-12 col-md-4 col-lg-2">
+
+                <select
+                    id="performerFestivalFilter"
+                    class="form-select">
+
+                    <option value="">
+                        All Festivals
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TYPE -->
+
+            <div class="col-12 col-md-4 col-lg-2">
+
+                <select
+                    id="performerTypeFilter"
+                    class="form-select">
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- GENRE -->
+
+            <div class="col-12 col-md-4 col-lg-2">
+
+                <select
+                    id="performerGenreFilter"
+                    class="form-select">
+
+                    <option value="">
+                        All Genres
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- COUNT -->
+
+            <div class="col-12 col-lg-2 text-lg-end">
+
+                <span
+                    id="performerCount"
+                    class="result-count">
+
+                    0
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+    <div id="performerLoading">
+
+        <div
+            class="spinner-border"
+            role="status">
+
+        </div>
+
+        <p class="text-muted mt-3 mb-0">
+
+            Loading performers...
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         EMPTY
+    ====================================================== -->
+
+    <div id="performerEmpty">
+
+        <i
+            class="bi bi-mic-mute fs-1 text-muted">
+        </i>
+
+        <h4 class="mt-3">
+
+            No performers found
+
+        </h4>
+
+        <p class="text-muted">
+
+            Try changing your search or filters.
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         PERFORMER GRID
+    ====================================================== -->
+
+    <div
+        id="performerGrid"
+        class="row g-4 pb-5">
+
+    </div>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div id="site-footer"></div>
+
+
+<!-- =========================================================
+     BOOTSTRAP
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<!-- Firebase Core -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- Firebase Configuration -->
+<script src="js/firebase.js"></script>
+
+
+
+
+<!-- =========================================================
+     CUSTOM
+========================================================= -->
+
+<script src="js/script.js"></script>
+
+<script src="includes/include.js"></script>
+
+<script>
+
+// ============================================================
+// PUBLIC PERFORMER PAGE
+// ============================================================
+
+let allPerformers = [];
+
+
+// ============================================================
+// DOM
+// ============================================================
+
+const performerGrid =
+    document.getElementById(
+        "performerGrid"
+    );
+
+const performerLoading =
+    document.getElementById(
+        "performerLoading"
+    );
+
+const performerEmpty =
+    document.getElementById(
+        "performerEmpty"
+    );
+
+const performerSearch =
+    document.getElementById(
+        "performerSearch"
+    );
+
+const performerFestivalFilter =
+    document.getElementById(
+        "performerFestivalFilter"
+    );
+
+const performerTypeFilter =
+    document.getElementById(
+        "performerTypeFilter"
+    );
+
+const performerGenreFilter =
+    document.getElementById(
+        "performerGenreFilter"
+    );
+
+const performerCount =
+    document.getElementById(
+        "performerCount"
+    );
+
+
+// ============================================================
+// FIX: CONVERT GOOGLE DRIVE URL TO DIRECT IMAGE URL
+// ============================================================
+
+function getDirectImageUrl(url) {
+    if (!url) return '';
+    
+    if (url.includes('drive.google.com')) {
+        let match = url.match(/\/file\/d\/([^/]+)/);
+        if (!match) {
+            match = url.match(/\/d\/([^/]+)/);
+        }
+        if (!match) {
+            match = url.match(/[?&]id=([^&]+)/);
+        }
+        if (!match) {
+            match = url.match(/open\?id=([^&]+)/);
+        }
+        
+        if (match && match[1]) {
+            const fileId = match[1];
+            // Try both formats
+            // Format 1: export=view
+            // Format 2: thumbnail (sometimes works better)
+            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
+        }
+    }
+    return url;
+}
+
+
+// ============================================================
+// FIREBASE REALTIME LISTENER
+// ============================================================
+
+firebase.database()
+    .ref("performer")
+    .on(
+        "value",
+        (snapshot) => {
+
+            allPerformers = [];
+
+            snapshot.forEach(
+                (child) => {
+
+                    const data =
+                        child.val();
+
+                    if (
+                        data &&
+                        data.active === true
+                    ) {
+
+                        allPerformers.push(
+                            {
+                                ...data,
+                                _key:
+                                    child.key
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+            allPerformers.sort(
+                (a, b) =>
+                    (b.createdAt || 0) -
+                    (a.createdAt || 0)
+            );
+
+            buildFilters();
+            applyFilters();
+
+            performerLoading.style.display =
+                "none";
+
+        },
+        (error) => {
+
+            console.error(
+                "Firebase performer error:",
+                error
+            );
+
+            performerLoading.style.display =
+                "none";
+
+            performerEmpty.style.display =
+                "block";
+
+            performerEmpty.innerHTML = `
+
+                <i class="bi bi-exclamation-triangle
+                          fs-1 text-danger">
+                </i>
+
+                <h4 class="mt-3">
+                    Unable to load performers
+                </h4>
+
+                <p class="text-muted">
+                    Please try again later.
+                </p>
+
+            `;
+
+        }
+    );
+
+
+// ============================================================
+// BUILD FILTERS
+// ============================================================
+
+function buildFilters() {
+
+    // Build festivals filter (dynamic from database)
+    const festivals =
+        [
+            ...new Set(
+                allPerformers
+                    .map(
+                        item => item.festival
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+    performerFestivalFilter.innerHTML = `
+
+        <option value="">
+            All Festivals
+        </option>
+
+    `;
+
+    festivals.forEach(
+        (festival) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                festival;
+
+            option.textContent =
+                festival;
+
+            performerFestivalFilter
+                .appendChild(option);
+
+        }
+    );
+
+    // Build types filter (dynamic from database)
+    const types =
+        [
+            ...new Set(
+                allPerformers
+                    .map(
+                        item => item.type
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+    performerTypeFilter.innerHTML = `
+
+        <option value="">
+            All Types
+        </option>
+
+    `;
+
+    types.forEach(
+        (type) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                type;
+
+            option.textContent =
+                formatText(type);
+
+            performerTypeFilter
+                .appendChild(option);
+
+        }
+    );
+
+    // Build genres filter (dynamic from database)
+    const genres =
+        [
+            ...new Set(
+                allPerformers
+                    .map(
+                        item => item.genre
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+    performerGenreFilter.innerHTML = `
+
+        <option value="">
+            All Genres
+        </option>
+
+    `;
+
+    genres.forEach(
+        (genre) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                genre;
+
+            option.textContent =
+                formatText(genre);
+
+            performerGenreFilter
+                .appendChild(option);
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// SEARCH + FILTER
+// ============================================================
+
+performerSearch.addEventListener(
+    "input",
+    applyFilters
+);
+
+performerFestivalFilter.addEventListener(
+    "change",
+    applyFilters
+);
+
+performerTypeFilter.addEventListener(
+    "change",
+    applyFilters
+);
+
+performerGenreFilter.addEventListener(
+    "change",
+    applyFilters
+);
+
+
+// ============================================================
+// APPLY FILTERS
+// ============================================================
+
+function applyFilters() {
+
+    const search =
+        performerSearch.value
+            .trim()
+            .toLowerCase();
+
+    const festival =
+        performerFestivalFilter.value;
+
+    const type =
+        performerTypeFilter.value
+            .toLowerCase();
+
+    const genre =
+        performerGenreFilter.value
+            .toLowerCase();
+
+    let filtered =
+        allPerformers.filter(
+            (performer) => {
+
+                const name =
+                    String(
+                        performer.name || ""
+                    )
+                    .toLowerCase();
+
+                const description =
+                    String(
+                        performer.description || ""
+                    )
+                    .toLowerCase();
+
+                const performerFestival =
+                    String(
+                        performer.festival || ""
+                    );
+
+                const performerType =
+                    String(
+                        performer.type || ""
+                    )
+                    .toLowerCase();
+
+                const performerGenre =
+                    String(
+                        performer.genre || ""
+                    )
+                    .toLowerCase();
+
+                const matchesSearch =
+                    !search ||
+                    name.includes(search) ||
+                    description.includes(search) ||
+                    performerType.includes(search) ||
+                    performerGenre.includes(search) ||
+                    performerFestival.toLowerCase().includes(search);
+
+                const matchesFestival =
+                    !festival ||
+                    performerFestival === festival;
+
+                const matchesType =
+                    !type ||
+                    performerType === type;
+
+                const matchesGenre =
+                    !genre ||
+                    performerGenre === genre;
+
+                return (
+                    matchesSearch &&
+                    matchesFestival &&
+                    matchesType &&
+                    matchesGenre
+                );
+
+            }
+        );
+
+    // Group by festival, then by type
+    filtered = groupByFestivalAndType(filtered);
+
+    renderPerformers(
+        filtered
+    );
+
+}
+
+
+// ============================================================
+// GROUP BY FESTIVAL AND TYPE
+// ============================================================
+
+function groupByFestivalAndType(performers) {
+    // If no festival filter is applied, group by festival
+    const festivalFilter = performerFestivalFilter.value;
+    
+    if (festivalFilter) {
+        // If a specific festival is selected, group by type only
+        return groupByType(performers);
+    }
+    
+    // Otherwise group by festival then by type
+    const grouped = [];
+    const festivalMap = new Map();
+    
+    performers.forEach(performer => {
+        const festival = performer.festival || "Uncategorized";
+        if (!festivalMap.has(festival)) {
+            festivalMap.set(festival, []);
+        }
+        festivalMap.get(festival).push(performer);
+    });
+    
+    // Sort festivals alphabetically
+    const sortedFestivals = Array.from(festivalMap.keys()).sort();
+    
+    sortedFestivals.forEach(festival => {
+        const performersInFestival = festivalMap.get(festival);
+        // Group by type within this festival
+        const typeGroups = groupByType(performersInFestival);
+        grouped.push({
+            festival: festival,
+            groups: typeGroups
+        });
+    });
+    
+    return grouped;
+}
+
+
+// ============================================================
+// GROUP BY TYPE
+// ============================================================
+
+function groupByType(performers) {
+    const typeMap = new Map();
+    
+    performers.forEach(performer => {
+        const type = performer.type || "Other";
+        if (!typeMap.has(type)) {
+            typeMap.set(type, []);
+        }
+        typeMap.get(type).push(performer);
+    });
+    
+    // Sort types alphabetically
+    const sortedTypes = Array.from(typeMap.keys()).sort();
+    const result = [];
+    
+    sortedTypes.forEach(type => {
+        result.push({
+            type: type,
+            performers: typeMap.get(type)
+        });
+    });
+    
+    return result;
+}
+
+
+// ============================================================
+// RENDER PERFORMERS (FIXED WITH GROUPING)
+// ============================================================
+
+function renderPerformers(
+    groupedData
+) {
+    performerGrid.innerHTML = "";
+    
+    // Calculate total performer count
+    let totalCount = 0;
+    if (Array.isArray(groupedData)) {
+        if (groupedData.length > 0 && groupedData[0].festival !== undefined) {
+            // Grouped by festival
+            groupedData.forEach(festivalGroup => {
+                festivalGroup.groups.forEach(typeGroup => {
+                    totalCount += typeGroup.performers.length;
+                });
+            });
+        } else {
+            // Grouped by type only
+            groupedData.forEach(typeGroup => {
+                totalCount += typeGroup.performers.length;
+            });
+        }
+    }
+    
+    performerCount.textContent =
+        `${totalCount} ${
+            totalCount === 1
+                ? "Performer"
+                : "Performers"
+        }`;
+
+    if (totalCount === 0) {
+        performerEmpty.style.display = "block";
+        return;
+    }
+
+    performerEmpty.style.display = "none";
+    
+    // Check if grouped by festival or just by type
+    const isFestivalGrouped = groupedData.length > 0 && groupedData[0].festival !== undefined;
+    
+    // Render based on grouping
+    if (isFestivalGrouped) {
+        // Render by festival groups
+        groupedData.forEach(festivalGroup => {
+            // Add festival header
+            const festivalHeader = document.createElement("div");
+            festivalHeader.className = "col-12 mb-3 mt-4";
+            festivalHeader.innerHTML = `
+                <h6 class="fw-bold" style="color: #2c3e50; padding-bottom: 8px; display: inline-block;">
+                    <small><i class="bi bi-calendar-event me-2"></i>
+                    ${escapeHtml(festivalGroup.festival)}</small>
+                </h6>
+                <hr class="mt-2" style="opacity: 0.3;">
+            `;
+            performerGrid.appendChild(festivalHeader);
+            
+            // Render each type group within this festival
+            festivalGroup.groups.forEach(typeGroup => {
+                // Add type sub-header
+                const typeHeader = document.createElement("div");
+                typeHeader.className = "col-12 mb-2 mt-3";
+                typeHeader.innerHTML = `
+                    <h5 class="fw-semibold" style="color: #34495e;">
+                        <i class="bi bi-tag me-2"></i>
+                        ${formatText(typeGroup.type)}
+                        <span class="badge bg-secondary ms-2">${typeGroup.performers.length}</span>
+                    </h5>
+                `;
+                performerGrid.appendChild(typeHeader);
+                
+                // Render performers for this type
+                typeGroup.performers.forEach(performer => {
+                    const col = createPerformerCard(performer);
+                    performerGrid.appendChild(col);
+                });
+            });
+        });
+    } else {
+        // Render by type only
+        groupedData.forEach(typeGroup => {
+            // Add type header
+            const typeHeader = document.createElement("div");
+            typeHeader.className = "col-12 mb-2 mt-3";
+            typeHeader.innerHTML = `
+                <h5 class="fw-semibold" style="color: #34495e;">
+                    <i class="bi bi-tag me-2"></i>
+                    ${formatText(typeGroup.type)}
+                    <span class="badge bg-secondary ms-2">${typeGroup.performers.length}</span>
+                </h5>
+            `;
+            performerGrid.appendChild(typeHeader);
+            
+            // Render performers for this type
+            typeGroup.performers.forEach(performer => {
+                const col = createPerformerCard(performer);
+                performerGrid.appendChild(col);
+            });
+        });
+    }
+}
+
+
+// ============================================================
+// CREATE PERFORMER CARD
+// ============================================================
+
+function createPerformerCard(performer) {
+    const col = document.createElement("div");
+    col.className = "col-12 col-sm-6 col-lg-4";
+
+    // FIX: Convert to direct image URL
+    const imageUrl = getDirectImageUrl(performer.image);
+
+    col.innerHTML = `
+
+        <div class="performer-card">
+
+            <!-- IMAGE -->
+            <div class="performer-image-wrapper">
+
+                <img
+                    src="${escapeHtml(imageUrl)}"
+                    class="performer-image"
+                    alt="${escapeHtml(
+                        performer.name
+                    )}"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                
+                <!-- Fallback div when image fails to load -->
+                <div style="display:none; width:100%; height:100%; background:#e9ecef; align-items:center; justify-content:center; flex-direction:column; position:absolute; top:0; left:0;">
+                    <i class="bi bi-person" style="font-size:4rem; color:#adb5bd;"></i>
+                    <span style="font-size:0.8rem; color:#6c757d; margin-top:8px;">Image not available</span>
+                </div>
+
+                ${
+                    performer.type
+                        ? `
+                            <span class="performer-type">
+                                ${escapeHtml(
+                                    formatText(
+                                        performer.type
+                                    )
+                                )}
+
+                            </span>
+                          `
+                        : ""
+                }
+
+            </div>
+
+            <!-- BODY -->
+            <div class="performer-card-body">
+
+                <div class="performer-name">
+
+                    ${escapeHtml(
+                        performer.name ||
+                        "Unnamed Performer"
+                    )}
+
+                </div>
+
+                ${
+                    performer.genre
+                        ? `
+                            <div class="performer-genre">
+                                ${escapeHtml(
+                                    formatText(
+                                        performer.genre
+                                    )
+                                )}
+
+                            </div>
+                          `
+                        : ""
+                }
+
+                ${
+                    performer.description
+                        ? `
+                            <div class="performer-description">
+
+                                ${escapeHtml(
+                                    performer.description
+                                )}
+
+                            </div>
+                          `
+                        : ""
+                }
+
+                ${
+                    performer.festival
+                        ? `
+                            <div style="font-size:.75rem; color:#888; margin-top:8px; border-top:1px solid #eee; padding-top:6px;">
+                                <i class="bi bi-calendar-event me-1"></i>
+                                ${escapeHtml(performer.festival)}
+                            </div>
+                          `
+                        : ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+    return col;
+}
+
+
+// ============================================================
+// FORMAT TEXT
+// ============================================================
+
+function formatText(
+    value
+) {
+
+    if (!value) {
+        return "";
+    }
+
+    return String(value)
+        .replace(
+            /[-_]/g,
+            " "
+        )
+        .replace(
+            /\b\w/g,
+            char =>
+                char.toUpperCase()
+        );
+
+}
+
+
+// ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

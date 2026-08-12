@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Updates | Dooars Monsoon Music & Cultural Festival
+    </title>
+     <link rel="icon" type="image/png" href="images/logo2.png">
+
+    <!-- Bootstrap 5.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+
+    <style>
+
+        /* =====================================================
+           UPDATES PAGE
+        ===================================================== */
+
+        .updates-hero {
+
+            padding: 80px 0 45px;
+
+            text-align: center;
+
+        }
+
+
+        .updates-hero h1 {
+
+            font-weight: 800;
+
+            margin-top: 8px;
+
+        }
+
+
+        .updates-hero p {
+
+            max-width: 650px;
+
+            margin: 8px auto 0;
+
+        }
+
+
+        /* =====================================================
+           FILTER AREA
+        ===================================================== */
+
+        .updates-filter {
+
+            background: rgba(255, 255, 255, 0.426);
+
+            backdrop-filter: blur(10px);
+
+            border-radius: 20px;
+
+            padding: 18px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,.08);
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* =====================================================
+           POST CARD
+        ===================================================== */
+
+        .post-card {
+
+            height: 100%;
+
+            border: 0;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.493);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.08);
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+
+        }
+
+
+        .post-card:hover {
+
+            transform:
+                translateY(-8px);
+
+            box-shadow:
+                0 18px 45px rgba(0,0,0,.15);
+
+        }
+
+
+        /* =====================================================
+           POST BODY
+        ===================================================== */
+
+        .post-card-body {
+
+            padding: 24px 24px 20px;
+
+        }
+
+
+        .post-card-title {
+
+            font-weight: 800;
+
+            font-size: 1.15rem;
+
+            margin-bottom: 6px;
+
+            line-height: 1.4;
+
+        }
+
+
+        .post-card-meta {
+
+            font-size: .82rem;
+
+            color: #888;
+
+            margin-bottom: 12px;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            align-items: center;
+
+            gap: 4px 12px;
+
+        }
+
+
+        .post-card-description {
+
+            color: #555;
+
+            font-size: .95rem;
+
+            line-height: 1.7;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 5;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+
+        }
+
+
+        .post-card-full-description {
+
+            color: #555;
+
+            font-size: .95rem;
+
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+
+        }
+
+
+        .post-card-footer {
+
+            padding: 12px 24px 20px;
+
+            border-top: 1px solid rgba(0,0,0,.05);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .post-type-badge {
+
+            font-size: .7rem;
+
+            font-weight: 600;
+
+            padding: 4px 12px;
+
+            border-radius: 50px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+        }
+
+
+        .post-date {
+
+            font-size: .75rem;
+
+            color: #999;
+
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        #updatesLoading {
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        #updatesEmpty {
+
+            display: none;
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           RESULT COUNT
+        ===================================================== */
+
+        .result-count {
+
+            font-size: .9rem;
+
+            color: #666;
+
+        }
+
+
+        /* =====================================================
+           READ MORE BUTTON
+        ===================================================== */
+
+        .read-more-btn {
+
+            background: none;
+
+            border: none;
+
+            color: #0d6efd;
+
+            font-weight: 600;
+
+            font-size: .85rem;
+
+            padding: 4px 0;
+
+            cursor: pointer;
+
+            transition: color .2s ease;
+
+        }
+
+
+        .read-more-btn:hover {
+
+            color: #0a58ca;
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 576px) {
+
+            .updates-hero {
+
+                padding-top: 20px;
+
+            }
+
+            .updates-hero h1 {
+
+                font-size: 1.8rem;
+
+            }
+
+            .post-card-body {
+
+                padding: 18px 18px 14px;
+
+            }
+
+            .post-card-footer {
+
+                padding: 10px 18px 16px;
+
+                flex-direction: column;
+
+                gap: 6px;
+
+                align-items: flex-start;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     DECORATIVE STICK BACKGROUND
+========================================================= -->
+
+<div id="stick-bg">
+
+    <img
+        src="images/stick.png"
+        class="stick stick-left-1"
+        alt="">
+
+    <img
+        src="images/stick.png"
+        class="stick stick-left-2"
+        alt="">
+
+
+    <img
+        src="images/stick.png"
+        class="stick stick-right-1"
+        alt="">
+
+    <img
+        src="images/stick.png"
+        class="stick stick-right-2"
+        alt="">
+
+</div>
+
+
+<!-- =========================================================
+     WARLI BACKGROUND
+========================================================= -->
+
+<div id="warli-bg"></div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<div id="site-header"></div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="container main-content">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="updates-hero">
+
+        <h1>
+
+            Festival Updates
+
+        </h1>
+
+
+        <p class="text-muted">
+
+            Stay informed about the latest news, announcements
+            and updates from the Dooars Monsoon Music & Cultural Festival.
+
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         FILTER
+    ====================================================== -->
+
+    <section class="card updates-filter">
+
+        <div class="row g-3 align-items-center">
+
+
+            <!-- SEARCH -->
+
+            <div class="col-12 col-lg-6">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+
+                        <i class="bi bi-search"></i>
+
+                    </span>
+
+                    <input
+                        type="search"
+                        id="updatesSearch"
+                        class="form-control"
+                        placeholder="Search updates...">
+
+                </div>
+
+            </div>
+
+
+            <!-- TYPE -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <select
+                    id="updatesTypeFilter"
+                    class="form-select">
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    <option value="notice">
+                        Notice
+                    </option>
+
+                    <option value="announcement">
+                        Announcement
+                    </option>
+
+                    <option value="update">
+                        Update
+                    </option>
+
+                    <option value="news">
+                        News
+                    </option>
+
+                    <option value="event">
+                        Event
+                    </option>
+
+
+                </select>
+
+            </div>
+
+
+            <!-- COUNT -->
+
+            <div class="col-12 col-lg-2 text-lg-end">
+
+                <span
+                    id="updatesCount"
+                    class="result-count">
+
+                    0
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+    <div id="updatesLoading">
+
+        <div
+            class="spinner-border"
+            role="status">
+
+        </div>
+
+        <p class="text-muted mt-3 mb-0">
+
+            Loading updates...
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         EMPTY
+    ====================================================== -->
+
+    <div id="updatesEmpty">
+
+        <i
+            class="bi bi-newspaper fs-1 text-muted">
+        </i>
+
+        <h4 class="mt-3">
+
+            No updates found
+
+        </h4>
+
+        <p class="text-muted">
+
+            Check back later for the latest festival news and announcements.
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         UPDATES GRID
+    ====================================================== -->
+
+    <div
+        id="updatesGrid"
+        class="row g-4 pb-5">
+
+    </div>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div id="site-footer"></div>
+
+
+<!-- =========================================================
+     BOOTSTRAP
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<!-- Firebase Core -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- Firebase Configuration -->
+<script src="js/firebase.js"></script>
+
+
+
+
+<!-- =========================================================
+     CUSTOM
+========================================================= -->
+
+<script src="js/script.js"></script>
+
+<script src="includes/include.js"></script>
+
+<script>
+
+// ============================================================
+// PUBLIC UPDATES PAGE
+// ============================================================
+
+let allUpdates = [];
+
+
+// ============================================================
+// DOM
+// ============================================================
+
+const updatesGrid =
+    document.getElementById(
+        "updatesGrid"
+    );
+
+const updatesLoading =
+    document.getElementById(
+        "updatesLoading"
+    );
+
+const updatesEmpty =
+    document.getElementById(
+        "updatesEmpty"
+    );
+
+const updatesSearch =
+    document.getElementById(
+        "updatesSearch"
+    );
+
+const updatesTypeFilter =
+    document.getElementById(
+        "updatesTypeFilter"
+    );
+
+const updatesCount =
+    document.getElementById(
+        "updatesCount"
+    );
+
+
+// ============================================================
+// FIREBASE REALTIME LISTENER
+// ============================================================
+
+firebase.database()
+    .ref("updates")
+    .on(
+        "value",
+        (snapshot) => {
+
+            allUpdates = [];
+
+            snapshot.forEach(
+                (child) => {
+
+                    const data =
+                        child.val();
+
+                    if (data) {
+
+                        allUpdates.push(
+                            {
+                                ...data,
+                                _key:
+                                    child.key
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+            allUpdates.sort(
+                (a, b) =>
+                    (b.createdAt || 0) -
+                    (a.createdAt || 0)
+            );
+
+            applyFilters();
+
+            updatesLoading.style.display =
+                "none";
+
+        },
+        (error) => {
+
+            console.error(
+                "Firebase updates error:",
+                error
+            );
+
+            updatesLoading.style.display =
+                "none";
+
+            updatesEmpty.style.display =
+                "block";
+
+            updatesEmpty.innerHTML = `
+
+                <i class="bi bi-exclamation-triangle
+                          fs-1 text-danger">
+                </i>
+
+                <h4 class="mt-3">
+                    Unable to load updates
+                </h4>
+
+                <p class="text-muted">
+                    Please try again later.
+                </p>
+
+                <p class="text-muted small mt-2">
+                    <button class="btn btn-outline-primary btn-sm mt-2" onclick="location.reload()">
+                        <i class="bi bi-arrow-clockwise me-1"></i>
+                        Retry
+                    </button>
+                </p>
+
+            `;
+
+        }
+    );
+
+
+// ============================================================
+// SEARCH + FILTER
+// ============================================================
+
+updatesSearch.addEventListener(
+    "input",
+    applyFilters
+);
+
+updatesTypeFilter.addEventListener(
+    "change",
+    applyFilters
+);
+
+
+// ============================================================
+// APPLY FILTERS
+// ============================================================
+
+function applyFilters() {
+
+    const search =
+        updatesSearch.value
+            .trim()
+            .toLowerCase();
+
+    const type =
+        updatesTypeFilter.value
+            .toLowerCase();
+
+    const filtered =
+        allUpdates.filter(
+            (update) => {
+
+                const title =
+                    String(
+                        update.title || ""
+                    )
+                    .toLowerCase();
+
+                const description =
+                    String(
+                        update.description || ""
+                    )
+                    .toLowerCase();
+
+                const updateType =
+                    String(
+                        update.type || ""
+                    )
+                    .toLowerCase();
+
+                const matchesSearch =
+                    !search ||
+                    title.includes(search) ||
+                    description.includes(search) ||
+                    updateType.includes(search);
+
+                const matchesType =
+                    !type ||
+                    updateType === type;
+
+                return (
+                    matchesSearch &&
+                    matchesType
+                );
+
+            }
+        );
+
+    renderUpdates(
+        filtered
+    );
+
+}
+
+
+// ============================================================
+// RENDER UPDATES
+// ============================================================
+
+function renderUpdates(
+    updates
+) {
+
+    updatesGrid.innerHTML =
+        "";
+
+    updatesCount.textContent =
+        `${updates.length} ${
+            updates.length === 1
+                ? "Update"
+                : "Updates"
+        }`;
+
+    if (
+        updates.length === 0
+    ) {
+
+        updatesEmpty.style.display =
+            "block";
+
+        return;
+
+    }
+
+    updatesEmpty.style.display =
+        "none";
+
+    updates.forEach(
+        (update) => {
+
+            const col =
+                document.createElement(
+                    "div"
+                );
+
+            col.className =
+                "col-12 col-sm-12 col-lg-12";
+
+            const typeBadge = getTypeBadge(update.type);
+            const formattedDate = formatDate(update.createdAt);
+            const description = update.description || '';
+            const isLongDescription = description.length > 300;
+            
+            // Truncate description for preview
+            const previewDescription = isLongDescription 
+                ? description.substring(0, 300) + '...' 
+                : description;
+
+            col.innerHTML = `
+
+                <div class="card post-card">
+
+                    <!-- BODY -->
+                    <div class="post-card-body">
+
+                        <div class="post-card-meta">
+                            ${typeBadge}
+                            <span class="post-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                ${formattedDate}
+                            </span>
+                        </div>
+
+                        <div class="post-card-title">
+                            ${escapeHtml(
+                                update.title ||
+                                "Untitled Post"
+                            )}
+                        </div>
+
+                        <div class="post-card-description" id="desc-${update._key}">
+                            ${escapeHtml(previewDescription)}
+                        </div>
+
+                        ${isLongDescription ? `
+                            <div class="mt-2">
+                                <button class="read-more-btn" onclick="toggleReadMore('${update._key}')">
+                                    <i class="bi bi-chevron-down me-1"></i>
+                                    Read More
+                                </button>
+                            </div>
+                        ` : ''}
+
+                    </div>
+
+                </div>
+
+            `;
+
+            updatesGrid.appendChild(
+                col
+            );
+
+            // Store full description for read more functionality
+            if (isLongDescription) {
+                col.querySelector('.post-card-description').dataset.fullText = escapeHtml(description);
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// TOGGLE READ MORE
+// ============================================================
+
+function toggleReadMore(key) {
+    const descElement = document.getElementById(`desc-${key}`);
+    if (!descElement) return;
+    
+    const button = descElement.parentElement.querySelector('.read-more-btn');
+    if (!button) return;
+    
+    const fullText = descElement.dataset.fullText;
+    if (!fullText) return;
+    
+    const currentText = descElement.textContent.trim();
+    const previewText = fullText.substring(0, 300) + '...';
+    
+    if (currentText === previewText || currentText.length <= 300) {
+        // Show full text
+        descElement.textContent = fullText;
+        button.innerHTML = `
+            <i class="bi bi-chevron-up me-1"></i>
+            Show Less
+        `;
+        descElement.classList.remove('post-card-description');
+        descElement.classList.add('post-card-full-description');
+    } else {
+        // Show preview
+        descElement.textContent = previewText;
+        button.innerHTML = `
+            <i class="bi bi-chevron-down me-1"></i>
+            Read More
+        `;
+        descElement.classList.remove('post-card-full-description');
+        descElement.classList.add('post-card-description');
+    }
+}
+
+
+// ============================================================
+// GET TYPE BADGE
+// ============================================================
+
+function getTypeBadge(type) {
+    const badgeColors = {
+        'notice': 'bg-warning text-dark',
+        'announcement': 'bg-info text-dark',
+        'update': 'bg-primary',
+        'news': 'bg-success',
+        'event': 'bg-danger',
+        'other': 'bg-secondary'
+    };
+
+    const color = badgeColors[type] || 'bg-secondary';
+    const label = formatText(type || 'Other');
+
+    return `<span class="post-type-badge ${color}">${label}</span>`;
+}
+
+
+// ============================================================
+// FORMAT DATE
+// ============================================================
+
+function formatDate(timestamp) {
+    if (!timestamp) return 'Date not available';
+    
+    const date = new Date(timestamp);
+    
+    // Check if date is valid
+    if (isNaN(date.getTime())) return 'Date not available';
+    
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+    
+    return date.toLocaleDateString('en-US', options);
+}
+
+
+// ============================================================
+// FORMAT TEXT
+// ============================================================
+
+function formatText(
+    value
+) {
+
+    if (!value) {
+        return "";
+    }
+
+    return String(value)
+        .replace(
+            /[-_]/g,
+            " "
+        )
+        .replace(
+            /\b\w/g,
+            char =>
+                char.toUpperCase()
+        );
+
+}
+
+
+// ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

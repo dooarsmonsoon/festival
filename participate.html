@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dooars Monsoon Music & Cultural Festival</title>
+    <link rel="icon" type="image/png" href="images/logo2.png">
+    <!-- Bootstrap 5.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Decorative Stick Background -->
+<div id="stick-bg">
+
+    <!-- Left Side -->
+    <img src="images/stick.png" class="stick stick-left-1" alt="">
+    <img src="images/stick.png" class="stick stick-left-2" alt="">
+
+    <!-- Right Side -->
+    <img src="images/stick.png" class="stick stick-right-1" alt="">
+    <img src="images/stick.png" class="stick stick-right-2" alt="">
+
+</div>
+
+
+<!-- Warli Background -->
+<div id="warli-bg"></div>
+
+<!-- HEADER --> 
+ <div id="site-header"></div>
+
+
+<!-- MAIN CONTENT -->
+<div class="container main-content py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+
+                        <i class="bi bi-person-plus-fill fs-1"></i>
+
+                        <h2 class="fw-bold mt-2 mb-1">
+                            Participate in the Festival
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Register yourself for the Dooars Monsoon
+                            Music & Cultural Festival
+                        </p>
+
+                    </div>
+
+
+                    <!-- FORM -->
+                    <form id="participateForm" novalidate>
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label for="participantName"
+                                   class="form-label fw-semibold">
+                                Name
+                            </label>
+
+                            <input type="text"
+                                   class="form-control form-control-sm form-control form-control-sm-lg"
+                                   id="participantName"
+                                   placeholder="Enter your name"
+                                   required>
+
+                            <div class="invalid-feedback">
+                                Please enter your name.
+                            </div>
+                        </div>
+
+
+                        <!-- Mobile -->
+                        <div class="mb-3">
+                            <label for="participantMobile"
+                                   class="form-label fw-semibold">
+                                Mobile Number
+                            </label>
+
+                            <input type="tel"
+                                   class="form-control form-control-sm form-control form-control-sm-lg"
+                                   id="participantMobile"
+                                   placeholder="Enter 10 digit mobile number"
+                                   inputmode="numeric"
+                                   maxlength="10"
+                                   required>
+
+                            <div class="invalid-feedback">
+                                Please enter a valid 10 digit mobile number.
+                            </div>
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="participantEmail"
+                                   class="form-label fw-semibold">
+                                Email
+                            </label>
+
+                            <input type="email"
+                                   class="form-control form-control-sm form-control form-control-sm-lg"
+                                   id="participantEmail"
+                                   placeholder="Enter your email"
+                                   required>
+
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+
+
+                        <!-- Participate Type -->
+                        <div class="mb-3">
+
+                            <label for="participateType"
+                                   class="form-label fw-semibold">
+                                Participate Type
+                            </label>
+
+                            <select class="form-select form-select-sm"
+                                    id="participateType"
+                                    required>
+
+                                <option value="" selected disabled>
+                                    Select participation type
+                                </option>
+
+                                <option value="music">
+                                    Musicians/Band
+                                </option>
+
+                                <option value="traditional-dance">
+                                    Traditional Dance
+                                </option>
+
+                                <option value="photography-exhibition-stall">
+                                    Photography Exhibition Stall
+                                </option>
+
+                                <option value="hand-craft-stall">
+                                    Hand Craft Stall
+                                </option>
+
+                                <option value="ornaments-stall">
+                                    Ornaments Stall
+                                </option>
+
+                                <option value="food-stall">
+                                    Food Stall
+                                </option>
+
+                                <option value="cafe">
+                                    Cafe Stall
+                                </option>
+
+                                <option value="traditional-dance">
+                                    Traditional Dance
+                                </option>
+
+                            </select>
+
+                            <div class="invalid-feedback">
+                                Please select a participation type.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Address -->
+                        <div class="mb-4">
+
+                            <label for="participantAddress"
+                                   class="form-label fw-semibold">
+                                Address
+                            </label>
+
+                            <textarea class="form-control form-control-sm"
+                                      id="participantAddress"
+                                      rows="3"
+                                      placeholder="Enter your full address"
+                                      required></textarea>
+
+                            <div class="invalid-feedback">
+                                Please enter your address.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Alert -->
+                        <div id="formAlert"
+                             class="alert d-none"
+                             role="alert">
+                        </div>
+
+
+                        <!-- Submit -->
+                        <div class="d-grid">
+
+                            <button type="submit"
+                                    id="participateSubmit"
+                                    class="btn btn-primary btn-lg rounded-3">
+
+                                <i class="bi bi-send-fill me-2"></i>
+                                Submit Participation
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- FOOTER --> 
+ <div id="site-footer"></div>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <!-- Firebase Config-->
+    <script src="js/firebase.js"></script>
+
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+    <script src="includes/include.js"></script>
+
+    <script>
+// ============================================================
+// Dooars Monsoon Music & Cultural Festival
+// Participation Registration
+// ============================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ========================================================
+    // ELEMENTS
+    // ========================================================
+
+    const form = document.getElementById("participateForm");
+    const submitBtn = document.getElementById("participateSubmit");
+    const alertBox = document.getElementById("formAlert");
+
+    const nameInput = document.getElementById("participantName");
+    const mobileInput = document.getElementById("participantMobile");
+    const emailInput = document.getElementById("participantEmail");
+    const typeInput = document.getElementById("participateType");
+    const addressInput = document.getElementById("participantAddress");
+
+
+    // ========================================================
+    // CREATE TOP STATUS BANNER
+    // ========================================================
+
+    // Get the card body
+    const cardBody = document.querySelector('.card-body');
+    
+    // Create top status banner (hidden by default)
+    const topStatusBanner = document.createElement("div");
+    topStatusBanner.id = "topStatusBanner";
+    topStatusBanner.className = "alert d-none mb-4";
+    topStatusBanner.innerHTML = `
+        <div class="d-flex align-items-center">
+            <div class="me-3">
+                <i class="bi bi-clipboard-check fs-3"></i>
+            </div>
+            <div>
+                <h5 class="fw-bold mb-1">Application Status</h5>
+                <div id="topStatusMessage" class="mb-0"></div>
+            </div>
+        </div>
+    `;
+    
+    // Insert at the top of card body (after the header)
+    const headerDiv = cardBody.querySelector('.text-center');
+    headerDiv.insertAdjacentElement('afterend', topStatusBanner);
+
+
+    // ========================================================
+    // CREATE FORM WRAPPER FOR HIDE/SHOW
+    // ========================================================
+
+    // Wrap the form in a div for easy hiding
+    const formWrapper = document.createElement("div");
+    formWrapper.id = "formWrapper";
+    form.parentNode.insertBefore(formWrapper, form);
+    formWrapper.appendChild(form);
+
+
+    // ========================================================
+    // ADD STATUS CHECK SECTION AT BOTTOM
+    // ========================================================
+
+    // Create a separate status check section after the form
+    const formContainer = form.parentElement;
+    
+    const statusSection = document.createElement("div");
+    statusSection.id = "statusSection";
+    statusSection.className = "mt-4 pt-3 border-top";
+    statusSection.innerHTML = `
+        <h5 class="fw-bold mb-3">
+            <i class="bi bi-clipboard-check me-2"></i>
+            Check Application Status
+        </h5>
+        <div id="statusResult" class="mb-3"></div>
+        <div class="d-grid">
+            <button type="button" id="checkStatusBtn" class="btn btn-outline-primary">
+                <i class="bi bi-search me-2"></i>
+                Check Application Status
+            </button>
+        </div>
+    `;
+    
+    formContainer.appendChild(statusSection);
+
+    const checkStatusBtn = document.getElementById("checkStatusBtn");
+    const statusResult = document.getElementById("statusResult");
+
+
+    // ========================================================
+    // MOBILE INPUT - Restrict to 10 digits
+    // ========================================================
+
+    mobileInput.addEventListener("input", function () {
+
+        this.value = this.value
+            .replace(/\D/g, "")
+            .substring(0, 10);
+
+        this.setCustomValidity("");
+
+        // Clear status when mobile changes
+        if (statusResult) {
+            statusResult.innerHTML = "";
+        }
+        
+        // Hide top banner when mobile changes
+        if (topStatusBanner) {
+            topStatusBanner.className = "alert d-none mb-4";
+        }
+
+    });
+
+
+    // ========================================================
+    // EMAIL
+    // ========================================================
+
+    emailInput.addEventListener("input", function () {
+
+        this.value = this.value
+            .trim()
+            .toLowerCase();
+
+    });
+
+
+    // ========================================================
+    // ALERT
+    // ========================================================
+
+    function showAlert(message, type = "danger") {
+
+        alertBox.className = `alert alert-${type}`;
+        alertBox.innerHTML = message;
+
+        alertBox.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+
+    }
+
+
+    function hideAlert() {
+
+        alertBox.className = "alert d-none";
+        alertBox.innerHTML = "";
+
+    }
+
+
+    // ========================================================
+    // SUBMIT BUTTON
+    // ========================================================
+
+    function setSubmitting(value) {
+
+        submitBtn.disabled = value;
+
+        if (value) {
+
+            submitBtn.innerHTML = `
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Submitting...
+            `;
+
+        } else {
+
+            submitBtn.innerHTML = `
+                <i class="bi bi-send-fill me-2"></i>
+                Submit Participation
+            `;
+
+        }
+
+    }
+
+
+    // ========================================================
+    // VALIDATE MOBILE
+    // ========================================================
+
+    function validateMobile(mobile) {
+
+        if (!mobile) {
+            return false;
+        }
+
+        return /^[6-9][0-9]{9}$/.test(mobile.trim());
+    }
+
+
+    // ========================================================
+    // UPDATE TOP STATUS BANNER
+    // ========================================================
+
+    function updateTopStatusBanner(status, message) {
+        
+        if (!topStatusBanner) return;
+        
+        // Clear previous classes
+        topStatusBanner.className = "alert mb-4";
+        
+        // Set status-specific classes and icons
+        const statusMessages = {
+            'pending': {
+                class: 'alert-warning',
+                icon: 'bi-clock-fill',
+                text: 'Your application is <strong>Pending</strong>.'
+            },
+            'approved': {
+                class: 'alert-success',
+                icon: 'bi-check-circle-fill',
+                text: '✅ Your application has been <strong>Approved</strong>!<br>Our team will shortly contact you.'
+            },
+            'rejected': {
+                class: 'alert-danger',
+                icon: 'bi-x-circle-fill',
+                text: 'Your application has been <strong>Rejected</strong>.'
+            },
+            'no-application': {
+                class: 'alert-info',
+                icon: 'bi-info-circle-fill',
+                text: 'No application found for this mobile number.'
+            }
+        };
+        
+        const statusInfo = statusMessages[status] || statusMessages['pending'];
+        
+        // Update the banner
+        topStatusBanner.className = `alert ${statusInfo.class} mb-4`;
+        
+        const messageDiv = document.getElementById('topStatusMessage');
+        if (messageDiv) {
+            messageDiv.innerHTML = `
+                <i class="bi ${statusInfo.icon} me-2"></i>
+                ${statusInfo.text}
+            `;
+        }
+        
+        // Show the banner
+        topStatusBanner.style.display = 'block';
+    }
+
+
+    // ========================================================
+    // CHECK APPLICATION STATUS
+    // ========================================================
+
+    async function checkApplicationStatus(mobile, showLoading = true) {
+
+        if (!statusResult) return;
+
+        statusResult.innerHTML = "";
+        
+        // Hide top banner while checking
+        if (topStatusBanner) {
+            topStatusBanner.className = "alert d-none mb-4";
+        }
+
+        // ----------------------------------------------------
+        // MOBILE VALIDATION
+        // ----------------------------------------------------
+
+        if (!validateMobile(mobile)) {
+
+            statusResult.innerHTML = `
+                <div class="alert alert-danger py-2 mb-0">
+                    <i class="bi bi-exclamation-circle-fill me-1"></i>
+                    Enter a valid 10 digit mobile number.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // FIREBASE CHECK
+        // ----------------------------------------------------
+
+        if (typeof db === "undefined") {
+
+            statusResult.innerHTML = `
+                <div class="alert alert-danger py-2 mb-0">
+                    Firebase is not initialized.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // LOADING
+        // ----------------------------------------------------
+
+        if (showLoading && checkStatusBtn) {
+            checkStatusBtn.disabled = true;
+            checkStatusBtn.innerHTML = `
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Checking...
+            `;
+        }
+
+
+        try {
+
+            const snapshot = await db
+                .ref("publicStatus/" + mobile.trim())
+                .once("value");
+
+
+            // ------------------------------------------------
+            // NO APPLICATION
+            // ------------------------------------------------
+
+            if (!snapshot.exists()) {
+
+                const noAppMessage = `
+                    <div class="alert alert-info py-2 mb-0">
+                        <i class="bi bi-info-circle-fill me-1"></i>
+                        No application found for this mobile number.
+                    </div>
+                `;
+                
+                statusResult.innerHTML = noAppMessage;
+                
+                // Update top banner
+                updateTopStatusBanner('no-application');
+
+                // Remove from localStorage if no application found
+                localStorage.removeItem("participantMobile");
+                localStorage.removeItem("participantEmail");
+                
+                // Show the form
+                showForm();
+
+                return;
+            }
+
+
+            const data = snapshot.val();
+
+            const status = data.status;
+
+
+            // ------------------------------------------------
+            // PENDING
+            // ------------------------------------------------
+
+            if (status === "pending") {
+
+                const pendingMessage = `
+                    <div class="alert alert-warning py-2 mb-0">
+                        <i class="bi bi-clock-fill me-1"></i>
+                        Your application is
+                        <strong>Pending</strong>.
+                    </div>
+                `;
+                
+                statusResult.innerHTML = pendingMessage;
+                updateTopStatusBanner('pending');
+                
+                // Hide form for pending
+                hideForm();
+
+            }
+
+
+            // ------------------------------------------------
+            // APPROVED
+            // ------------------------------------------------
+
+            else if (status === "approved") {
+
+                const approvedMessage = `
+                    <div class="alert alert-success py-2 mb-0">
+                        <i class="bi bi-check-circle-fill me-1"></i>
+                        ✅ Your application has been
+                        <strong>Approved</strong>!<br>
+                        Our team will shortly contact you.
+                    </div>
+                `;
+                
+                statusResult.innerHTML = approvedMessage;
+                updateTopStatusBanner('approved');
+                
+                // Hide form for approved
+                hideForm();
+
+            }
+
+
+            // ------------------------------------------------
+            // REJECTED
+            // ------------------------------------------------
+
+            else if (status === "rejected") {
+
+                const rejectedMessage = `
+                    <div class="alert alert-danger py-2 mb-0">
+                        <i class="bi bi-x-circle-fill me-1"></i>
+                        Your application has been
+                        <strong>Rejected</strong>.
+                    </div>
+                `;
+                
+                statusResult.innerHTML = rejectedMessage;
+                updateTopStatusBanner('rejected');
+                
+                // Hide form for rejected
+                hideForm();
+
+            }
+
+
+            // ------------------------------------------------
+            // UNKNOWN STATUS
+            // ------------------------------------------------
+
+            else {
+
+                statusResult.innerHTML = `
+                    <div class="alert alert-secondary py-2 mb-0">
+                        Application found.
+                    </div>
+                `;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Status check error:",
+                error
+            );
+
+            statusResult.innerHTML = `
+                <div class="alert alert-danger py-2 mb-0">
+                    <i class="bi bi-exclamation-circle-fill me-1"></i>
+                    Unable to check application status.
+                </div>
+            `;
+
+        } finally {
+
+            if (showLoading && checkStatusBtn) {
+                checkStatusBtn.disabled = false;
+                checkStatusBtn.innerHTML = `
+                    <i class="bi bi-search me-2"></i>
+                    Check Application Status
+                `;
+            }
+
+        }
+
+    }
+
+
+    // ========================================================
+    // HIDE/SHOW FORM
+    // ========================================================
+
+    function hideForm() {
+        if (formWrapper) {
+            formWrapper.style.display = 'none';
+        }
+    }
+
+
+    function showForm() {
+        if (formWrapper) {
+            formWrapper.style.display = 'block';
+        }
+    }
+
+
+    // ========================================================
+    // CHECK STATUS BUTTON CLICK
+    // ========================================================
+
+    if (checkStatusBtn) {
+        checkStatusBtn.addEventListener("click", () => {
+
+            const mobile = mobileInput.value.trim();
+
+            if (!validateMobile(mobile)) {
+                mobileInput.focus();
+                mobileInput.classList.add("is-invalid");
+                
+                statusResult.innerHTML = `
+                    <div class="alert alert-danger py-2 mb-0">
+                        <i class="bi bi-exclamation-circle-fill me-1"></i>
+                        Enter a valid 10 digit mobile number.
+                    </div>
+                `;
+                
+                return;
+            }
+
+            // Save to localStorage when manually checking
+            localStorage.setItem("participantMobile", mobile);
+            localStorage.setItem("participantEmail", emailInput.value.trim().toLowerCase());
+
+            checkApplicationStatus(mobile, true);
+
+        });
+    }
+
+
+    // ========================================================
+    // VALIDATE FORM
+    // ========================================================
+
+    function validateForm() {
+
+        let valid = true;
+
+        form.classList.add("was-validated");
+
+
+        // ----------------------------------------------------
+        // NAME
+        // ----------------------------------------------------
+
+        const name = nameInput.value.trim();
+
+        if (name.length < 2 || name.length > 100) {
+
+            nameInput.setCustomValidity("Invalid name");
+
+            valid = false;
+
+        } else {
+
+            nameInput.setCustomValidity("");
+
+        }
+
+
+        // ----------------------------------------------------
+        // MOBILE
+        // ----------------------------------------------------
+
+        const mobile = mobileInput.value.trim();
+
+        if (!validateMobile(mobile)) {
+
+            mobileInput.setCustomValidity(
+                "Please enter a valid 10 digit mobile number."
+            );
+
+            valid = false;
+
+        } else {
+
+            mobileInput.setCustomValidity("");
+
+        }
+
+
+        // ----------------------------------------------------
+        // EMAIL
+        // ----------------------------------------------------
+
+        const email =
+            emailInput.value.trim().toLowerCase();
+
+        const emailPattern =
+            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+        if (!emailPattern.test(email)) {
+
+            emailInput.setCustomValidity("Invalid email");
+
+            valid = false;
+
+        } else {
+
+            emailInput.setCustomValidity("");
+
+        }
+
+
+        // ----------------------------------------------------
+        // PARTICIPATION TYPE
+        // ----------------------------------------------------
+
+        const allowedTypes = [
+            "music",
+            "hand-craft-stall",
+            "food-stall"
+        ];
+
+        if (!allowedTypes.includes(typeInput.value)) {
+
+            typeInput.setCustomValidity(
+                "Please select a participation type."
+            );
+
+            valid = false;
+
+        } else {
+
+            typeInput.setCustomValidity("");
+
+        }
+
+
+        // ----------------------------------------------------
+        // ADDRESS
+        // ----------------------------------------------------
+
+        const address =
+            addressInput.value.trim();
+
+        if (address.length < 5 || address.length > 500) {
+
+            addressInput.setCustomValidity(
+                "Please enter a valid address."
+            );
+
+            valid = false;
+
+        } else {
+
+            addressInput.setCustomValidity("");
+
+        }
+
+
+        return valid;
+    }
+
+
+    // ========================================================
+    // FORM SUBMIT
+    // ========================================================
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        hideAlert();
+
+
+        // ----------------------------------------------------
+        // VALIDATE
+        // ----------------------------------------------------
+
+        if (!validateForm()) {
+
+            showAlert(
+                "Please check the form and enter valid information.",
+                "danger"
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // VALUES
+        // ----------------------------------------------------
+
+        const name =
+            nameInput.value.trim();
+
+        const mobile =
+            mobileInput.value.trim();
+
+        const email =
+            emailInput.value.trim().toLowerCase();
+
+        const participateType =
+            typeInput.value;
+
+        const address =
+            addressInput.value.trim();
+
+
+        // ----------------------------------------------------
+        // FIREBASE
+        // ----------------------------------------------------
+
+        if (typeof db === "undefined") {
+
+            showAlert(
+                "Firebase is not initialized.",
+                "danger"
+            );
+
+            return;
+        }
+
+
+        setSubmitting(true);
+
+
+        try {
+
+            // =================================================
+            // APPLICATION DATA
+            // =================================================
+
+            const participantData = {
+
+                id: mobile,
+
+                name: name,
+
+                mobile: mobile,
+
+                email: email,
+
+                participateType: participateType,
+
+                address: address,
+
+                status: "pending",
+
+                createdAt:
+                    firebase.database.ServerValue.TIMESTAMP
+
+            };
+
+
+            // =================================================
+            // ATOMIC WRITE
+            // =================================================
+
+            const updates = {};
+
+
+            // Main private application
+            updates[
+                "/participations/" + mobile
+            ] = participantData;
+
+
+            // Public status lookup
+            updates[
+                "/publicStatus/" + mobile
+            ] = {
+
+                status: "pending"
+
+            };
+
+
+            // =================================================
+            // SAVE
+            // =================================================
+
+            await db.ref().update(updates);
+
+
+            // =================================================
+            // SAVE TO LOCAL STORAGE
+            // =================================================
+
+            localStorage.setItem("participantMobile", mobile);
+            localStorage.setItem("participantEmail", email);
+
+
+            // =================================================
+            // SUCCESS
+            // =================================================
+
+            showAlert(
+                `
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <strong>Application submitted successfully!</strong><br>
+                Your application is currently
+                <strong>Pending</strong>.
+                `,
+                "success"
+            );
+
+
+            // =================================================
+            // RESET
+            // =================================================
+
+            form.reset();
+
+            form.classList.remove("was-validated");
+
+            nameInput.setCustomValidity("");
+            mobileInput.setCustomValidity("");
+            emailInput.setCustomValidity("");
+            typeInput.setCustomValidity("");
+            addressInput.setCustomValidity("");
+
+            // Fill mobile with saved value
+            mobileInput.value = mobile;
+            emailInput.value = email;
+            
+            // =================================================
+            // CHECK STATUS AUTOMATICALLY
+            // =================================================
+
+            await checkApplicationStatus(mobile, true);
+
+
+        } catch (error) {
+
+            console.error(
+                "Participation submission error:",
+                error
+            );
+
+
+            // =================================================
+            // DUPLICATE MOBILE
+            // =================================================
+
+            if (
+                error.code === "PERMISSION_DENIED" ||
+                error.message?.includes("permission_denied")
+            ) {
+
+                showAlert(
+                    `
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <strong>This mobile number may already have
+                    an application.</strong><br>
+                    Please use the
+                    <strong>Check Application Status</strong>
+                    button.
+                    `,
+                    "warning"
+                );
+
+            } else {
+
+                showAlert(
+                    `
+                    <i class="bi bi-x-circle-fill me-2"></i>
+                    Unable to submit your application.
+                    Please try again.
+                    `,
+                    "danger"
+                );
+
+            }
+
+        } finally {
+
+            setSubmitting(false);
+
+        }
+
+    });
+
+
+    // ========================================================
+    // AUTO CHECK STATUS ON PAGE LOAD
+    // ========================================================
+
+    // Check if user has previously submitted
+    const savedMobile = localStorage.getItem("participantMobile");
+    const savedEmail = localStorage.getItem("participantEmail");
+
+    if (savedMobile && validateMobile(savedMobile)) {
+        
+        // Fill the form with saved data
+        mobileInput.value = savedMobile;
+        
+        if (savedEmail) {
+            emailInput.value = savedEmail;
+        }
+
+        // Auto-check status after a small delay
+        setTimeout(() => {
+            checkApplicationStatus(savedMobile, true);
+        }, 500);
+        
+    }
+
+});
+    </script>
+
+</body>
+
+</html>
+

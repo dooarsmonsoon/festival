@@ -1,0 +1,3317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Performer - Dooars Monsoon Festival</title>
+    <link rel="icon" type="image/png" href="images/logo2.png">
+
+    <!-- Bootstrap 5.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+        <link
+    href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css"
+    rel="stylesheet">
+
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <style>
+
+        .performer-wrapper {
+            min-height: 75vh;
+            padding: 40px 0;
+        }
+
+
+        .performer-card {
+            border: 0;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.185);
+            backdrop-filter: blur(10px);
+        }
+
+
+        .image-upload-box {
+            border: 2px dashed #adb5bd;
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: .25s ease;
+            background: rgba(248,249,250,.7);
+        }
+
+
+        .image-upload-box:hover {
+            border-color: #0d6efd;
+            background: rgba(13,110,253,.04);
+        }
+
+
+        .image-upload-box.dragover {
+            border-color: #0d6efd;
+            background: rgba(13,110,253,.08);
+        }
+
+
+        #imagePreview {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 18px;
+            display: none;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.15);
+        }
+
+
+        .upload-icon {
+            font-size: 3rem;
+        }
+
+
+        #progressBox {
+            display: none;
+        }
+
+
+        #adminContent {
+            display: none;
+        }
+
+
+        #loginSection {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            border: 0;
+            border-radius: 22px;
+        }
+
+
+        .genre-help {
+            font-size: .8rem;
+        }
+
+        /* Performer List Styles */
+        .performer-list-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0,0,0,.06);
+            transition: background .2s ease;
+        }
+
+        .performer-list-item:hover {
+            background: rgba(13,110,253,.04);
+        }
+
+        .performer-list-item:last-child {
+            border-bottom: 0;
+        }
+
+        .performer-list-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 14px;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+
+        .performer-list-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .performer-list-name {
+            font-weight: 600;
+            font-size: .95rem;
+            margin-bottom: 2px;
+        }
+
+        .performer-list-meta {
+            font-size: .8rem;
+            color: #888;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .performer-list-meta .badge {
+            font-size: .7rem;
+            font-weight: 500;
+        }
+
+        .performer-list-actions {
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        .performer-list-actions .btn {
+            padding: 4px 10px;
+            font-size: .8rem;
+        }
+
+        .performer-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 2px solid rgba(0,0,0,.08);
+            background: rgba(248,249,250,.5);
+            border-radius: 18px 18px 0 0;
+        }
+
+        .performer-list-body {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .performer-list-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .performer-list-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .performer-list-body::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+
+        .performer-list-body::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .empty-performer-list {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .empty-performer-list i {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .performer-list-count {
+            font-size: .85rem;
+            color: #666;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     DECORATIVE BACKGROUND
+========================================= -->
+
+<div id="stick-bg">
+
+    <img src="images/stick.png"
+         class="stick stick-left-1"
+         alt="">
+
+    <img src="images/stick.png"
+         class="stick stick-left-2"
+         alt="">
+
+    <img src="images/stick.png"
+         class="stick stick-right-1"
+         alt="">
+
+    <img src="images/stick.png"
+         class="stick stick-right-2"
+         alt="">
+
+</div>
+
+
+<div id="warli-bg"></div>
+
+
+<!-- HEADER -->
+
+<div id="site-header"></div>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<div class="container performer-wrapper">
+
+
+    <!-- =====================================
+         ADMIN LOGIN
+    ====================================== -->
+
+    <div id="loginSection">
+
+        <div class="card login-card shadow-lg">
+
+            <div class="card-body p-4 p-md-5">
+
+                <div class="text-center mb-4">
+
+                    <i class="bi bi-shield-lock-fill fs-1"></i>
+
+                    <h3 class="fw-bold mt-2">
+                        Admin Sign In
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Performer Management
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm">
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginEmail"
+                            class="form-label fw-semibold">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            class="form-control form-control-sm"
+                            placeholder="Admin email"
+                            required>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginPassword"
+                            class="form-label fw-semibold">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            class="form-control form-control-sm"
+                            placeholder="Password"
+                            required>
+
+                    </div>
+
+
+                    <div
+                        id="loginAlert"
+                        class="alert d-none">
+                    </div>
+
+
+                    <div class="d-grid">
+
+                        <button
+                            type="submit"
+                            id="loginBtn"
+                            class="btn btn-primary btn-lg">
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                            Sign In
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         ADMIN CONTENT
+    ====================================== -->
+
+    <div id="adminContent">
+
+
+        <!-- ADMIN HEADER -->
+
+
+
+        <!-- =====================================
+             PERFORMER FORM
+        ====================================== -->
+
+        <div class="card performer-card shadow-lg mb-4">
+
+            <div class="btn-group" role="group">
+            <a type="button" href="admin.html" class="btn btn-primary">Admin</a>
+            <a type="button" href="add-post.html" class="btn btn-success">Post</a>
+            <button type="button" id="logoutBtn" class="btn btn-danger">Logout</button>
+           </div>
+
+            <div class="card-body p-2 p-md-5">
+
+
+                <form id="performerForm"
+                      novalidate>
+
+
+                    <!-- =========================
+                         IMAGE
+                    ========================== -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Performer Image
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+
+                        <div
+                            id="imageUploadBox"
+                            class="image-upload-box">
+
+                            <img
+                                id="imagePreview"
+                                src=""
+                                alt="Performer preview">
+
+
+                            <div id="uploadPlaceholder">
+
+                                <i class="bi bi-cloud-arrow-up
+                                          upload-icon
+                                          text-primary">
+                                </i>
+
+                                <h5 class="mt-2">
+                                    Upload Performer Image
+                                </h5>
+
+                                <p class="text-muted mb-2">
+                                    Click here or drag & drop
+                                </p>
+
+                                <small class="text-muted">
+                                    JPG, JPEG, PNG or WebP
+                                </small>
+
+                            </div>
+
+                            <input
+                                type="file"
+                                id="performerImage"
+                                accept="image/jpeg,image/png,image/webp"
+                                hidden>
+
+                        </div>
+
+
+                        <div
+                            id="imageInfo"
+                            class="small text-muted mt-2">
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         NAME
+                    ========================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="performerName"
+                            class="form-label fw-semibold">
+
+                            Name
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="performerName"
+                            class="form-control form-control-sm"
+                            placeholder="Enter performer name"
+                            maxlength="100"
+                            required>
+
+                        <div class="invalid-feedback">
+                            Please enter performer name.
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         TYPE + GENRE
+                    ========================== -->
+
+                    <div class="row g-3 mb-3">
+
+
+                        <!-- TYPE -->
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="performerType"
+                                class="form-label fw-semibold">
+
+                                Type
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+                            <select
+                                id="performerType"
+                                class="form-select form-select-sm"
+                                required>
+
+                                <option
+                                    value=""
+                                    selected
+                                    disabled>
+
+                                    Select type
+
+                                </option>
+
+                                <option value="musician">
+                                    Musician/Band
+                                </option>
+
+                                <option value="artist">
+                                    Artist
+                                </option>                          
+
+                                <option value="dj">
+                                    DJ
+                                </option>
+
+                                <option value="singer">
+                                    Singer
+                                </option>
+
+                                <option value="dancer">
+                                    Dancer
+                                </option>
+
+                                <option value="folk-artist">
+                                    Folk Artist
+                                </option>
+
+                                <option value="other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                            <div class="invalid-feedback">
+                                Please select performer type.
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- GENRE -->
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="performerGenre"
+                                class="form-label fw-semibold">
+
+                                Genre
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+                            <select
+                                id="performerGenre"
+                                class="form-select form-select-sm"
+                                required>
+
+                                <option
+                                    value=""
+                                    selected
+                                    disabled>
+
+                                    Select genre
+
+                                </option>
+
+                                <option value="folk">
+                                    Folk
+                                </option>
+
+                                <option value="rock">
+                                    Rock
+                                </option>
+
+                                <option value="metal">
+                                    Metal
+                                </option>
+
+                                <option value="hard-rock">
+                                    Hard Rock
+                                </option>
+
+                                <option value="classical">
+                                    Classical
+                                </option>
+
+                                <option value="pop">
+                                    Pop
+                                </option>
+
+                                <option value="indie">
+                                    Indie
+                                </option>
+
+                                <option value="jazz">
+                                    Jazz
+                                </option>
+
+                                <option value="blues">
+                                    Blues
+                                </option>
+
+                                <option value="electronic">
+                                    Electronic
+                                </option>
+
+                                <option value="fusion">
+                                    Fusion
+                                </option>
+
+                                <option value="acoustic">
+                                    Acoustic
+                                </option>
+
+                                <option value="traditional">
+                                    Traditional
+                                </option>
+
+                                <option value="other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                            <div class="invalid-feedback">
+                                Please select performer genre.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         FESTIVAL
+                    ========================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="performerFestival"
+                            class="form-label fw-semibold">
+
+                            Festival
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <select
+                            id="performerFestival"
+                            class="form-select form-select-sm"
+                            required>
+
+                            <option
+                                value=""
+                                selected
+                                disabled>
+
+                                Select festival
+
+                            </option>
+
+                            <option value="Dooars Monsoon Music & Cultural Festival 3.0 2026">
+                                Dooars Monsoon Music & Cultural Festival 3.0 2026
+                            </option>
+
+                        </select>
+
+                        <div class="invalid-feedback">
+                            Please select a festival.
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         DESCRIPTION
+                    ========================== -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="performerDescription"
+                            class="form-label fw-semibold">
+
+                            Description
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <textarea
+                            id="performerDescription"
+                            class="form-control"
+                            rows="5"
+                            maxlength="1000"
+                            placeholder="Write a short description about the performer..."
+                            required></textarea>
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    mt-1">
+
+                            <div class="invalid-feedback">
+                                Please enter a description.
+                            </div>
+
+                            <small
+                                id="descriptionCount"
+                                class="text-muted ms-auto">
+
+                                0 / 1000
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         UPLOAD PASSWORD
+                    ========================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="uploadPassword"
+                            class="form-label fw-semibold">
+
+                            <i class="bi bi-lock-fill me-1"></i>
+                            Upload Password
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="uploadPassword"
+                            class="form-control form-control-sm"
+                            placeholder="Enter upload password"
+                            required>
+
+                        <div class="invalid-feedback">
+                            Please enter the upload password.
+                        </div>
+
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle me-1"></i>
+                            The upload password is required to save this performer. Contact the festival admin for the password.
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         ACTIVE
+                    ========================== -->
+
+                    <div class="form-check
+                                form-switch
+                                mb-4">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="performerActive"
+                            checked>
+
+                        <label
+                            class="form-check-label fw-semibold"
+                            for="performerActive">
+
+                            Display performer on website
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         UPLOAD PROGRESS
+                    ========================== -->
+
+                    <div
+                        id="progressBox"
+                        class="mb-4">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    mb-2">
+
+                            <small id="uploadStatus">
+                                Preparing...
+                            </small>
+
+                            <small id="uploadPercent">
+                                0%
+                            </small>
+
+                        </div>
+
+                        <div class="progress"
+                             style="height: 8px;">
+
+                            <div
+                                id="uploadProgress"
+                                class="progress-bar"
+                                role="progressbar"
+                                style="width: 0%;">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ALERT -->
+
+                    <div
+                        id="formAlert"
+                        class="alert d-none">
+                    </div>
+
+
+
+                    <!-- =========================
+                         BUTTONS
+                    ========================== -->
+
+                    <div class="d-flex
+                                flex-column
+                                flex-sm-row
+                                gap-2">
+
+                        <button
+                            type="submit"
+                            id="submitBtn"
+                            class="btn btn-primary btn-lg flex-fill">
+
+                            <i class="bi bi-cloud-upload-fill me-2"></i>
+
+                            Upload & Save Performer
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="resetBtn"
+                            class="btn btn-outline-secondary btn-lg">
+
+                            <i class="bi bi-arrow-counterclockwise me-2"></i>
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PERFORMER LIST
+        ====================================== -->
+
+        <div class="card performer-card shadow-lg">
+
+            <div class="card-body p-4">
+
+                <div class="performer-list-header">
+                    <div>
+                        <h5 class="fw-bold mb-0">
+                            <i class="bi bi-list-ul me-2"></i>
+                            All Performers
+                        </h5>
+                        <small class="text-muted">Manage existing performers</small>
+                    </div>
+                    <span id="totalPerformerCount" class="performer-list-count">
+                        <i class="bi bi-person me-1"></i>
+                        <span id="performerCountNumber">0</span>
+                    </span>
+                </div>
+
+                <div id="performerListContainer" class="performer-list-body">
+                    <!-- Performer list will be rendered here -->
+                    <div class="empty-performer-list">
+                        <i class="bi bi-inbox"></i>
+                        <p class="mb-0">No performers added yet.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     IMAGE CROP MODAL
+========================================= -->
+
+<div class="modal fade"
+     id="imageCropModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content border-0 rounded-4 overflow-hidden">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-crop me-2"></i>
+                    Adjust Performer Image
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body p-3">
+
+                <div class="crop-container">
+
+                    <img
+                        id="cropImage"
+                        src=""
+                        alt="Crop image">
+
+                </div>
+
+
+                <div class="d-flex
+                            justify-content-center
+                            flex-wrap
+                            gap-2
+                            mt-3">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        id="zoomOutBtn">
+
+                        <i class="bi bi-zoom-out"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        id="zoomInBtn">
+
+                        <i class="bi bi-zoom-in"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        id="rotateLeftBtn">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        id="rotateRightBtn">
+
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-danger"
+                        id="resetCropBtn">
+
+                        <i class="bi bi-arrow-repeat me-1"></i>
+                        Reset
+
+                    </button>
+
+                </div>
+
+
+                <div class="text-center text-muted small mt-3">
+
+                    <i class="bi bi-info-circle me-1"></i>
+
+                    Drag the image to position it.
+                    Use zoom to adjust the framing.
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="cropUseBtn">
+
+                    <i class="bi bi-check-circle-fill me-1"></i>
+
+                    Crop & Use Image
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     DELETE CONFIRMATION MODAL
+========================================= -->
+
+<div class="modal fade"
+     id="deleteConfirmModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 rounded-4">
+
+            <div class="modal-header border-0">
+
+                <h5 class="modal-title fw-bold text-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Confirm Delete
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body text-center py-4">
+
+                <i class="bi bi-trash3-fill text-danger" style="font-size: 3.5rem;"></i>
+
+                <h5 class="fw-bold mt-3">Delete Performer?</h5>
+
+                <p class="text-muted mb-0">
+                    Are you sure you want to delete
+                    <br>
+                    <strong id="deletePerformerName" class="text-dark">"Performer Name"</strong>
+                    <br>
+                    <span class="text-danger small">This action cannot be undone.</span>
+                </p>
+
+            </div>
+
+
+            <div class="modal-footer border-0 justify-content-center">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    <i class="bi bi-x-circle me-1"></i>
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmDeleteBtn">
+
+                    <i class="bi bi-trash3 me-1"></i>
+                    Delete Performer
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- FOOTER -->
+
+<div id="site-footer"></div>
+
+
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<!-- Firebase -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js">
+</script>
+
+
+
+<!-- Firebase Config -->
+<script src="js/script.js"></script>
+<script src="js/firebase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+
+
+<!-- Performer Script -->
+
+<script>
+
+
+// ============================================================
+// ADD PERFORMER
+// Dooars Monsoon Music & Cultural Festival
+// ============================================================
+
+
+// ============================================================
+// CONFIGURATION
+// ============================================================
+
+const ADMIN_EMAIL = "team.dooarsmonsoonfestival@gmail.com";
+
+const WEBAPP =
+    "https://script.google.com/macros/s/AKfycbx3D6jb9D8WbiGDqu9tFIkd-etpsarruxiBb4G5FPLgXXuJPDWyfEpol99XRwzCK7dz/exec";
+
+
+// ============================================================
+// GLOBAL VARIABLES
+// ============================================================
+
+let cropper = null;
+
+let croppedImageFile = null;
+
+let cropModal = null;
+
+let deleteModal = null;
+
+let performerToDelete = null;
+
+
+// ============================================================
+// DOM ELEMENTS
+// ============================================================
+
+const loginSection =
+    document.getElementById("loginSection");
+
+const adminContent =
+    document.getElementById("adminContent");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginEmail =
+    document.getElementById("loginEmail");
+
+const loginPassword =
+    document.getElementById("loginPassword");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const loginAlert =
+    document.getElementById("loginAlert");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+const performerForm =
+    document.getElementById("performerForm");
+
+const imageUploadBox =
+    document.getElementById("imageUploadBox");
+
+const performerImage =
+    document.getElementById("performerImage");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
+const uploadPlaceholder =
+    document.getElementById("uploadPlaceholder");
+
+const imageInfo =
+    document.getElementById("imageInfo");
+
+
+const performerName =
+    document.getElementById("performerName");
+
+const performerDescription =
+    document.getElementById("performerDescription");
+
+const performerType =
+    document.getElementById("performerType");
+
+const performerGenre =
+    document.getElementById("performerGenre");
+
+const performerFestival =
+    document.getElementById("performerFestival");
+
+const performerActive =
+    document.getElementById("performerActive");
+
+const uploadPassword =
+    document.getElementById("uploadPassword");
+
+
+const descriptionCount =
+    document.getElementById("descriptionCount");
+
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+
+const formAlert =
+    document.getElementById("formAlert");
+
+
+const progressBox =
+    document.getElementById("progressBox");
+
+const uploadProgress =
+    document.getElementById("uploadProgress");
+
+const uploadStatus =
+    document.getElementById("uploadStatus");
+
+const uploadPercent =
+    document.getElementById("uploadPercent");
+
+
+// Performer List Elements
+const performerListContainer =
+    document.getElementById("performerListContainer");
+
+const performerCountNumber =
+    document.getElementById("performerCountNumber");
+
+
+// ============================================================
+// CROP MODAL ELEMENTS
+// ============================================================
+
+const cropModalElement =
+    document.getElementById("imageCropModal");
+
+const cropImage =
+    document.getElementById("cropImage");
+
+
+const zoomInBtn =
+    document.getElementById("zoomInBtn");
+
+const zoomOutBtn =
+    document.getElementById("zoomOutBtn");
+
+const rotateLeftBtn =
+    document.getElementById("rotateLeftBtn");
+
+const rotateRightBtn =
+    document.getElementById("rotateRightBtn");
+
+const resetCropBtn =
+    document.getElementById("resetCropBtn");
+
+const cropUseBtn =
+    document.getElementById("cropUseBtn");
+
+
+// ============================================================
+// DELETE MODAL ELEMENTS
+// ============================================================
+
+const deleteModalElement =
+    document.getElementById("deleteConfirmModal");
+
+const deletePerformerName =
+    document.getElementById("deletePerformerName");
+
+const confirmDeleteBtn =
+    document.getElementById("confirmDeleteBtn");
+
+
+// ============================================================
+// INITIALIZE BOOTSTRAP MODALS
+// ============================================================
+
+if (cropModalElement) {
+
+    cropModal =
+        new bootstrap.Modal(
+            cropModalElement,
+            {
+                backdrop: "static",
+                keyboard: false
+            }
+        );
+
+}
+
+if (deleteModalElement) {
+
+    deleteModal =
+        new bootstrap.Modal(
+            deleteModalElement,
+            {
+                backdrop: "static",
+                keyboard: true
+            }
+        );
+
+}
+
+
+// ============================================================
+// LOGIN ALERT
+// ============================================================
+
+function showLoginAlert(
+    message,
+    type = "danger"
+) {
+
+    loginAlert.className =
+        `alert alert-${type}`;
+
+    loginAlert.innerHTML =
+        message;
+
+}
+
+
+function hideLoginAlert() {
+
+    loginAlert.className =
+        "alert d-none";
+
+    loginAlert.innerHTML =
+        "";
+
+}
+
+
+// ============================================================
+// FORM ALERT
+// ============================================================
+
+function showFormAlert(
+    message,
+    type = "danger"
+) {
+
+    formAlert.className =
+        `alert alert-${type}`;
+
+    formAlert.innerHTML =
+        message;
+
+}
+
+
+function hideFormAlert() {
+
+    formAlert.className =
+        "alert d-none";
+
+    formAlert.innerHTML =
+        "";
+
+}
+
+
+// ============================================================
+// FIREBASE AUTH STATE
+// ============================================================
+
+firebase.auth().onAuthStateChanged(
+    async (user) => {
+
+        if (!user) {
+
+            loginSection.style.display =
+                "flex";
+
+            adminContent.style.display =
+                "none";
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // ADMIN EMAIL CHECK
+        // ----------------------------------------------------
+
+        if (
+            !user.email ||
+            user.email.toLowerCase() !==
+            ADMIN_EMAIL.toLowerCase()
+        ) {
+
+            await firebase.auth().signOut();
+
+            loginSection.style.display =
+                "flex";
+
+            adminContent.style.display =
+                "none";
+
+            showLoginAlert(
+                `
+                <i class="bi bi-shield-x me-2"></i>
+                You are not authorized to access this page.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // ADMIN ALLOWED
+        // ----------------------------------------------------
+
+        loginSection.style.display =
+            "none";
+
+        adminContent.style.display =
+            "block";
+
+        // Load performers when admin logs in
+        loadPerformerList();
+
+    }
+);
+
+
+// ============================================================
+// ADMIN LOGIN
+// ============================================================
+
+loginForm.addEventListener(
+    "submit",
+    async (e) => {
+
+        e.preventDefault();
+
+        hideLoginAlert();
+
+
+        const email =
+            loginEmail.value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            loginPassword.value;
+
+
+        if (email !==
+            ADMIN_EMAIL.toLowerCase()
+        ) {
+
+            showLoginAlert(
+                `
+                <i class="bi bi-shield-x me-2"></i>
+                Only the festival administrator can sign in here.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            showLoginAlert(
+                "Please enter your password.",
+                "danger"
+            );
+
+            return;
+        }
+
+
+        loginBtn.disabled =
+            true;
+
+
+        loginBtn.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Signing In...
+        `;
+
+
+        try {
+
+            await firebase.auth()
+                .signInWithEmailAndPassword(
+                    email,
+                    password
+                );
+
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            let message =
+                "Unable to sign in.";
+
+
+            switch (error.code) {
+
+                case "auth/wrong-password":
+
+                    message =
+                        "Incorrect password.";
+
+                    break;
+
+
+                case "auth/invalid-credential":
+
+                    message =
+                        "Invalid email or password.";
+
+                    break;
+
+
+                case "auth/user-not-found":
+
+                    message =
+                        "Admin account not found.";
+
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    message =
+                        "Invalid email address.";
+
+                    break;
+
+
+                case "auth/too-many-requests":
+
+                    message =
+                        "Too many login attempts. Please try again later.";
+
+                    break;
+
+            }
+
+
+            showLoginAlert(
+                message,
+                "danger"
+            );
+
+
+        } finally {
+
+            loginBtn.disabled =
+                false;
+
+            loginBtn.innerHTML = `
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Sign In
+            `;
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+logoutBtn.addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            await firebase.auth()
+                .signOut();
+
+        } catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// IMAGE UPLOAD BOX CLICK
+// ============================================================
+
+imageUploadBox.addEventListener(
+    "click",
+    () => {
+
+        performerImage.click();
+
+    }
+);
+
+
+// ============================================================
+// DRAG OVER
+// ============================================================
+
+imageUploadBox.addEventListener(
+    "dragover",
+    (e) => {
+
+        e.preventDefault();
+
+        imageUploadBox.classList.add(
+            "dragover"
+        );
+
+    }
+);
+
+
+// ============================================================
+// DRAG LEAVE
+// ============================================================
+
+imageUploadBox.addEventListener(
+    "dragleave",
+    () => {
+
+        imageUploadBox.classList.remove(
+            "dragover"
+        );
+
+    }
+);
+
+
+// ============================================================
+// DROP IMAGE
+// ============================================================
+
+imageUploadBox.addEventListener(
+    "drop",
+    (e) => {
+
+        e.preventDefault();
+
+        imageUploadBox.classList.remove(
+            "dragover"
+        );
+
+
+        const file =
+            e.dataTransfer.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        processSelectedImage(
+            file
+        );
+
+    }
+);
+
+
+// ============================================================
+// FILE INPUT CHANGE
+// ============================================================
+
+performerImage.addEventListener(
+    "change",
+    () => {
+
+        const file =
+            performerImage.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        processSelectedImage(
+            file
+        );
+
+    }
+);
+
+
+// ============================================================
+// PROCESS SELECTED IMAGE
+// ============================================================
+
+function processSelectedImage(file) {
+
+    hideFormAlert();
+
+
+    // --------------------------------------------------------
+    // IMAGE TYPE
+    // --------------------------------------------------------
+
+    if (!file.type.startsWith("image/")) {
+
+        showFormAlert(
+            `
+            <i class="bi bi-exclamation-circle me-2"></i>
+            Please select a valid image file.
+            `,
+            "danger"
+        );
+
+        performerImage.value =
+            "";
+
+        return;
+    }
+
+
+    // --------------------------------------------------------
+    // IMAGE SIZE
+    // --------------------------------------------------------
+
+    const maxSize =
+        10 * 1024 * 1024;
+
+
+    if (file.size > maxSize) {
+
+        showFormAlert(
+            `
+            <i class="bi bi-exclamation-circle me-2"></i>
+            Image must be smaller than 10 MB.
+            `,
+            "danger"
+        );
+
+        performerImage.value =
+            "";
+
+        return;
+    }
+
+
+    // --------------------------------------------------------
+    // READ IMAGE
+    // --------------------------------------------------------
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        (event) => {
+
+            cropImage.src =
+                event.target.result;
+
+
+            // Destroy previous cropper
+
+            if (cropper) {
+
+                cropper.destroy();
+
+                cropper = null;
+
+            }
+
+
+            // Show modal
+
+            if (cropModal) {
+
+                cropModal.show();
+
+            }
+
+        };
+
+
+    reader.onerror =
+        () => {
+
+            showFormAlert(
+                "Unable to read the selected image.",
+                "danger"
+            );
+
+        };
+
+
+    reader.readAsDataURL(
+        file
+    );
+
+}
+
+
+// ============================================================
+// INITIALIZE CROPPER
+// ============================================================
+
+cropModalElement.addEventListener(
+    "shown.bs.modal",
+    () => {
+
+        if (cropper) {
+
+            cropper.destroy();
+
+            cropper = null;
+
+        }
+
+
+        cropper =
+            new Cropper(
+                cropImage,
+                {
+
+                    // Fixed square crop
+                    aspectRatio: 1,
+
+                    // Prevent crop area from going
+                    // outside the image
+
+                    viewMode: 1,
+
+                    // Allow user to move image
+
+                    dragMode: "move",
+
+                    // Initial crop size
+
+                    autoCropArea: 0.9,
+
+                    responsive: true,
+
+                    restore: true,
+
+                    guides: true,
+
+                    center: true,
+
+                    highlight: false,
+
+                    background: true,
+
+                    movable: true,
+
+                    zoomable: true,
+
+                    rotatable: true,
+
+                    scalable: false,
+
+                    cropBoxMovable: false,
+
+                    cropBoxResizable: false,
+
+                    toggleDragModeOnDblclick: false
+
+                }
+            );
+
+    }
+);
+
+
+// ============================================================
+// ZOOM IN
+// ============================================================
+
+zoomInBtn.addEventListener(
+    "click",
+    () => {
+
+        if (!cropper) {
+            return;
+        }
+
+        cropper.zoom(
+            0.1
+        );
+
+    }
+);
+
+
+// ============================================================
+// ZOOM OUT
+// ============================================================
+
+zoomOutBtn.addEventListener(
+    "click",
+    () => {
+
+        if (!cropper) {
+            return;
+        }
+
+        cropper.zoom(
+            -0.1
+        );
+
+    }
+);
+
+
+// ============================================================
+// ROTATE LEFT
+// ============================================================
+
+rotateLeftBtn.addEventListener(
+    "click",
+    () => {
+
+        if (!cropper) {
+            return;
+        }
+
+        cropper.rotate(
+            -90
+        );
+
+    }
+);
+
+
+// ============================================================
+// ROTATE RIGHT
+// ============================================================
+
+rotateRightBtn.addEventListener(
+    "click",
+    () => {
+
+        if (!cropper) {
+            return;
+        }
+
+        cropper.rotate(
+            90
+        );
+
+    }
+);
+
+
+// ============================================================
+// RESET CROP
+// ============================================================
+
+resetCropBtn.addEventListener(
+    "click",
+    () => {
+
+        if (!cropper) {
+            return;
+        }
+
+        cropper.reset();
+
+    }
+);
+
+
+// ============================================================
+// CROP & USE IMAGE
+// ============================================================
+
+cropUseBtn.addEventListener(
+    "click",
+    () => {
+
+        if (!cropper) {
+
+            showFormAlert(
+                "Please select an image first.",
+                "danger"
+            );
+
+            return;
+        }
+
+
+        cropUseBtn.disabled =
+            true;
+
+
+        cropUseBtn.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Processing...
+        `;
+
+
+        try {
+
+            const canvas =
+                cropper.getCroppedCanvas(
+                    {
+
+                        // Final image dimensions
+                        width: 1200,
+                        height: 1200,
+
+                        imageSmoothingEnabled:
+                            true,
+
+                        imageSmoothingQuality:
+                            "high"
+
+                    }
+                );
+
+
+            canvas.toBlob(
+                (blob) => {
+
+                    if (!blob) {
+
+                        cropUseBtn.disabled =
+                            false;
+
+                        cropUseBtn.innerHTML = `
+                            <i class="bi bi-check-circle-fill me-1"></i>
+                            Crop & Use Image
+                        `;
+
+                        showFormAlert(
+                            "Unable to process the image.",
+                            "danger"
+                        );
+
+                        return;
+                    }
+
+
+                    // ------------------------------------------------
+                    // CREATE FINAL WEBP FILE
+                    // ------------------------------------------------
+
+                    croppedImageFile =
+                        new File(
+                            [blob],
+                            "performer.webp",
+                            {
+                                type:
+                                    "image/webp",
+                                lastModified:
+                                    Date.now()
+                            }
+                        );
+
+
+                    // ------------------------------------------------
+                    // PREVIEW FINAL IMAGE
+                    // ------------------------------------------------
+
+                    const previewUrl =
+                        URL.createObjectURL(
+                            croppedImageFile
+                        );
+
+
+                    imagePreview.src =
+                        previewUrl;
+
+                    imagePreview.style.display =
+                        "block";
+
+
+                    uploadPlaceholder.style.display =
+                        "none";
+
+
+                    // ------------------------------------------------
+                    // SIZE INFORMATION
+                    // ------------------------------------------------
+
+                    const finalSize =
+                        (
+                            croppedImageFile.size /
+                            (1024 * 1024)
+                        ).toFixed(2);
+
+
+                    imageInfo.innerHTML = `
+                        <i class="bi bi-check-circle-fill text-success me-1"></i>
+
+                        <strong>1200 × 1200</strong>
+
+                        &nbsp; • &nbsp;
+
+                        WebP
+
+                        &nbsp; • &nbsp;
+
+                        ${finalSize} MB
+                    `;
+
+
+                    // ------------------------------------------------
+                    // CLOSE MODAL
+                    // ------------------------------------------------
+
+                    cropModal.hide();
+
+
+                },
+                "image/webp",
+                0.88
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Crop error:",
+                error
+            );
+
+
+            showFormAlert(
+                "Unable to crop image.",
+                "danger"
+            );
+
+        } finally {
+
+            setTimeout(
+                () => {
+
+                    cropUseBtn.disabled =
+                        false;
+
+                    cropUseBtn.innerHTML = `
+                        <i class="bi bi-check-circle-fill me-1"></i>
+                        Crop & Use Image
+                    `;
+
+                },
+                500
+            );
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// MODAL HIDDEN
+// ============================================================
+
+cropModalElement.addEventListener(
+    "hidden.bs.modal",
+    () => {
+
+        if (cropper) {
+
+            cropper.destroy();
+
+            cropper = null;
+
+        }
+
+        cropImage.src =
+            "";
+
+    }
+);
+
+
+// ============================================================
+// DESCRIPTION COUNTER
+// ============================================================
+
+performerDescription.addEventListener(
+    "input",
+    () => {
+
+        descriptionCount.textContent =
+            `${performerDescription.value.length} / 1000`;
+
+    }
+);
+
+
+// ============================================================
+// SUBMIT PERFORMER
+// ============================================================
+
+performerForm.addEventListener(
+    "submit",
+    async (e) => {
+
+        e.preventDefault();
+
+        hideFormAlert();
+
+
+        // --------------------------------------------------------
+        // GET VALUES
+        // --------------------------------------------------------
+
+        const name =
+            performerName.value.trim();
+
+        const description =
+            performerDescription.value.trim();
+
+        const type =
+            performerType.value;
+
+        const genre =
+            performerGenre.value;
+
+        const festival =
+            performerFestival.value;
+
+        const active =
+            performerActive.checked;
+
+        const password =
+            uploadPassword.value.trim();
+
+
+        // --------------------------------------------------------
+        // VALIDATION
+        // --------------------------------------------------------
+
+        performerForm.classList.add(
+            "was-validated"
+        );
+
+
+        if (!croppedImageFile) {
+
+            showFormAlert(
+                `
+                <i class="bi bi-image me-2"></i>
+                Please select and crop a performer image.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            showFormAlert(
+                `
+                <i class="bi bi-lock me-2"></i>
+                Please enter the upload password.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        if (
+            !performerForm.checkValidity()
+        ) {
+
+            showFormAlert(
+                `
+                <i class="bi bi-exclamation-circle me-2"></i>
+                Please complete all required fields.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        // --------------------------------------------------------
+        // BUTTON STATE
+        // --------------------------------------------------------
+
+        const originalHtml =
+            submitBtn.innerHTML;
+
+
+        submitBtn.disabled =
+            true;
+
+        resetBtn.disabled =
+            true;
+
+
+        submitBtn.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Uploading...
+        `;
+
+
+        progressBox.style.display =
+            "block";
+
+
+        updateProgress(
+            0,
+            "Starting..."
+        );
+
+
+        try {
+
+            // ====================================================
+            // CHECK CURRENT USER
+            // ====================================================
+
+            const user =
+                firebase.auth()
+                    .currentUser;
+
+
+            if (!user) {
+
+                throw new Error(
+                    "Admin session expired. Please sign in again."
+                );
+
+            }
+
+
+            if (
+                !user.email ||
+                user.email.toLowerCase() !==
+                ADMIN_EMAIL.toLowerCase()
+            ) {
+
+                throw new Error(
+                    "You are not authorized to add performers."
+                );
+
+            }
+
+
+            // ====================================================
+            // CREATE FIREBASE ID
+            // ====================================================
+
+            const performerRef =
+                firebase.database()
+                    .ref("performer")
+                    .push();
+
+
+            const performerId =
+                performerRef.key;
+
+
+            updateProgress(
+                5,
+                "Preparing performer..."
+            );
+
+
+            // ====================================================
+            // UPLOAD CROPPED IMAGE
+            // ====================================================
+
+            const imageUrl =
+                await uploadPerformerImage(
+                    croppedImageFile,
+                    performerId,
+                    password
+                );
+
+
+            // ====================================================
+            // FIREBASE DATA
+            // ====================================================
+
+            const performerData = {
+
+                id:
+                    performerId,
+
+                name:
+                    name,
+
+                description:
+                    description,
+
+                type:
+                    type,
+
+                genre:
+                    genre,
+
+                festival:
+                    festival,
+
+                image:
+                    imageUrl,
+
+                active:
+                    active,
+
+                createdAt:
+                    firebase.database
+                        .ServerValue
+                        .TIMESTAMP,
+
+                updatedAt:
+                    firebase.database
+                        .ServerValue
+                        .TIMESTAMP
+
+            };
+
+
+            updateProgress(
+                95,
+                "Saving performer information..."
+            );
+
+
+            // ====================================================
+            // SAVE FIREBASE
+            // ====================================================
+
+            await performerRef.set(
+                performerData
+            );
+
+
+            // ====================================================
+            // COMPLETE
+            // ====================================================
+
+            updateProgress(
+                100,
+                "Performer added successfully!"
+            );
+
+
+            showFormAlert(
+                `
+                <i class="bi bi-check-circle-fill me-2"></i>
+
+                <strong>Performer added successfully!</strong>
+
+                `,
+                "success"
+            );
+
+
+            // Reload performer list
+            loadPerformerList();
+
+
+            // ====================================================
+            // RESET AFTER SUCCESS
+            // ====================================================
+
+            setTimeout(
+                () => {
+
+                    resetForm();
+
+                    progressBox.style.display =
+                        "none";
+
+                },
+                1500
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Add performer error:",
+                error
+            );
+
+
+            progressBox.style.display =
+                "none";
+
+
+            // Check if it's a password error
+            let errorMessage = error.message;
+            if (errorMessage && errorMessage.includes('Password')) {
+                errorMessage = 'Invalid upload password. Please check and try again.';
+                // Clear password field for security
+                uploadPassword.value = '';
+            }
+
+
+            showFormAlert(
+                `
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                <strong>Error:</strong>
+
+                ${escapeHtml(errorMessage)}
+
+                `,
+                "danger"
+            );
+
+
+        } finally {
+
+            submitBtn.disabled =
+                false;
+
+            resetBtn.disabled =
+                false;
+
+            submitBtn.innerHTML =
+                originalHtml;
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// GOOGLE DRIVE UPLOAD
+// ============================================================
+
+async function uploadPerformerImage(
+    file,
+    performerId,
+    password
+) {
+
+    updateProgress(
+        15,
+        "Preparing image..."
+    );
+
+    if (!password) {
+        throw new Error("Upload password is required.");
+    }
+
+    // --------------------------------------------------------
+    // FILE IS ALREADY 1200x1200 WEBP
+    // --------------------------------------------------------
+
+    const uploadFile = file;
+
+    // --------------------------------------------------------
+    // FILE NAME
+    // --------------------------------------------------------
+
+    const fileName =
+        `${performerId}.webp`;
+
+    const renamedFile =
+        new File(
+            [uploadFile],
+            fileName,
+            {
+                type: "image/webp"
+            }
+        );
+
+    updateProgress(
+        30,
+        "Preparing upload..."
+    );
+
+    // --------------------------------------------------------
+    // CONVERT TO BASE64
+    // --------------------------------------------------------
+
+    const reader = new FileReader();
+
+    const base64 =
+        await new Promise(
+            (resolve, reject) => {
+
+                reader.onload = () => {
+
+                    const result = reader.result;
+
+                    if (typeof result !== "string") {
+                        reject(new Error("Unable to read image."));
+                        return;
+                    }
+
+                    const parts = result.split(",");
+
+                    if (parts.length < 2) {
+                        reject(new Error("Invalid image data."));
+                        return;
+                    }
+
+                    resolve(parts[1]);
+                };
+
+                reader.onerror = () => {
+                    reject(new Error("Failed to read image."));
+                };
+
+                reader.readAsDataURL(renamedFile);
+            }
+        );
+
+    updateProgress(
+        50,
+        "Uploading image to Google Drive..."
+    );
+
+    // --------------------------------------------------------
+    // APPS SCRIPT DATA
+    // --------------------------------------------------------
+
+    const data = {
+        fileName: renamedFile.name,
+        mimeType: renamedFile.type,
+        file: base64,
+        postId: performerId,
+        folder: "performer",
+        password: password
+    };
+
+    // --------------------------------------------------------
+    // SEND TO GOOGLE APPS SCRIPT
+    // --------------------------------------------------------
+
+    const response =
+        await fetch(
+            WEBAPP,
+            {
+                method: "POST",
+                body: JSON.stringify(data)
+            }
+        );
+
+    if (!response.ok) {
+        throw new Error(
+            `Google Drive upload failed. HTTP ${response.status}`
+        );
+    }
+
+    updateProgress(
+        80,
+        "Processing Google Drive response..."
+    );
+
+    const result =
+        await response.json();
+
+    if (!result || !result.success) {
+        // Check for password error
+        if (result?.error && (result.error.includes('Password') || result.error.includes('password'))) {
+            throw new Error(result.error);
+        }
+        throw new Error(
+            result?.error || "Google Drive upload failed."
+        );
+    }
+
+    if (!result.url) {
+        throw new Error(
+            "Google Drive did not return an image URL."
+        );
+    }
+
+    // --------------------------------------------------------
+    // FIX: CONVERT TO DIRECT IMAGE URL IF NEEDED
+    // --------------------------------------------------------
+    
+    let imageUrl = result.url;
+    
+    // If the URL is a Google Drive view link, convert to direct URL
+    if (imageUrl.includes('drive.google.com')) {
+        // Extract file ID from various URL formats
+        let fileId = null;
+        
+        // Pattern: /file/d/FILE_ID/view
+        let match = imageUrl.match(/\/file\/d\/([^/]+)/);
+        if (match && match[1]) {
+            fileId = match[1];
+        }
+        
+        // Pattern: /d/FILE_ID/view
+        if (!fileId) {
+            match = imageUrl.match(/\/d\/([^/]+)/);
+            if (match && match[1]) {
+                fileId = match[1];
+            }
+        }
+        
+        // Pattern: ?id=FILE_ID
+        if (!fileId) {
+            match = imageUrl.match(/[?&]id=([^&]+)/);
+            if (match && match[1]) {
+                fileId = match[1];
+            }
+        }
+        
+        // Pattern: open?id=FILE_ID
+        if (!fileId) {
+            match = imageUrl.match(/open\?id=([^&]+)/);
+            if (match && match[1]) {
+                fileId = match[1];
+            }
+        }
+        
+        // If we found a file ID, use the direct URL format
+        if (fileId) {
+            imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+        }
+    }
+
+    updateProgress(
+        90,
+        "Image uploaded successfully..."
+    );
+
+    // Return the fixed URL
+    return imageUrl;
+}
+
+
+// ============================================================
+// LOAD PERFORMER LIST
+// ============================================================
+
+function loadPerformerList() {
+
+    performerListContainer.innerHTML = `
+        <div class="text-center py-4">
+            <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+            <p class="text-muted mt-2 mb-0 small">Loading performers...</p>
+        </div>
+    `;
+
+    firebase.database()
+        .ref("performer")
+        .once("value")
+        .then((snapshot) => {
+
+            const performers = [];
+
+            snapshot.forEach((child) => {
+                const data = child.val();
+                if (data) {
+                    performers.push({
+                        ...data,
+                        _key: child.key
+                    });
+                }
+            });
+
+            // Sort by createdAt descending (newest first)
+            performers.sort((a, b) => 
+                (b.createdAt || 0) - (a.createdAt || 0)
+            );
+
+            renderPerformerList(performers);
+
+        })
+        .catch((error) => {
+            console.error("Error loading performers:", error);
+            performerListContainer.innerHTML = `
+                <div class="empty-performer-list text-danger">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <p class="mb-0">Failed to load performers.</p>
+                </div>
+            `;
+        });
+
+}
+
+
+// ============================================================
+// RENDER PERFORMER LIST
+// ============================================================
+
+function renderPerformerList(performers) {
+
+    performerCountNumber.textContent = performers.length;
+
+    if (performers.length === 0) {
+        performerListContainer.innerHTML = `
+            <div class="empty-performer-list">
+                <i class="bi bi-inbox"></i>
+                <p class="mb-0">No performers added yet.</p>
+                <p class="text-muted small mt-1">Add your first performer using the form above.</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+
+    performers.forEach((performer, index) => {
+        const imageUrl = performer.image || '';
+        const isActive = performer.active === true;
+        const statusBadge = isActive 
+            ? '<span class="badge bg-success">Active</span>' 
+            : '<span class="badge bg-secondary">Inactive</span>';
+
+        html += `
+            <div class="performer-list-item">
+                <img 
+                    src="${escapeHtml(imageUrl)}" 
+                    class="performer-list-image" 
+                    alt="${escapeHtml(performer.name)}"
+                    onerror="this.style.display='none'"
+                >
+                <div class="performer-list-info">
+                    <div class="performer-list-name">
+                        ${escapeHtml(performer.name || 'Unnamed')}
+                        ${statusBadge}
+                    </div>
+                    <div class="performer-list-meta">
+                        <span>${escapeHtml(performer.type || 'No type')}</span>
+                        ${performer.genre ? `<span>• ${escapeHtml(formatText(performer.genre))}</span>` : ''}
+                        ${performer.festival ? `<span>• ${escapeHtml(performer.festival)}</span>` : ''}
+                        <span class="text-muted small">• ${new Date(performer.createdAt || Date.now()).toLocaleDateString()}</span>
+                    </div>
+                </div>
+                <div class="performer-list-actions">
+                    <button 
+                        class="btn btn-outline-danger btn-sm delete-performer-btn" 
+                        data-key="${performer._key}"
+                        data-name="${escapeHtml(performer.name)}"
+                        title="Delete performer"
+                    >
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    performerListContainer.innerHTML = html;
+
+    // Add event listeners to delete buttons
+    document.querySelectorAll('.delete-performer-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const key = this.getAttribute('data-key');
+            const name = this.getAttribute('data-name');
+            openDeleteModal(key, name);
+        });
+    });
+
+}
+
+
+// ============================================================
+// OPEN DELETE MODAL
+// ============================================================
+
+function openDeleteModal(key, name) {
+    performerToDelete = key;
+    deletePerformerName.textContent = `"${name}"`;
+    
+    // Reset confirm button state
+    confirmDeleteBtn.disabled = false;
+    confirmDeleteBtn.innerHTML = `
+        <i class="bi bi-trash3 me-1"></i>
+        Delete Performer
+    `;
+    
+    deleteModal.show();
+}
+
+
+// ============================================================
+// CONFIRM DELETE
+// ============================================================
+
+confirmDeleteBtn.addEventListener('click', async function() {
+    if (!performerToDelete) {
+        return;
+    }
+
+    // Disable button and show loading state
+    this.disabled = true;
+    this.innerHTML = `
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Deleting...
+    `;
+
+    try {
+        // Delete from Firebase
+        await firebase.database()
+            .ref(`performer/${performerToDelete}`)
+            .remove();
+
+        // Close modal
+        deleteModal.hide();
+
+        // Reload the performer list
+        loadPerformerList();
+
+        // Show success message
+        showFormAlert(
+            `
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong>Performer deleted successfully!</strong>
+            `,
+            "success"
+        );
+
+        // Clear the deleted performer reference
+        performerToDelete = null;
+
+    } catch (error) {
+        console.error("Delete error:", error);
+        
+        // Show error in modal
+        this.disabled = false;
+        this.innerHTML = `
+            <i class="bi bi-trash3 me-1"></i>
+            Delete Performer
+        `;
+
+        // Show error message
+        showFormAlert(
+            `
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong>Error:</strong>
+            Failed to delete performer. Please try again.
+            `,
+            "danger"
+        );
+    }
+});
+
+
+// ============================================================
+// RESET MODAL STATE WHEN CLOSED
+// ============================================================
+
+deleteModalElement.addEventListener('hidden.bs.modal', function() {
+    performerToDelete = null;
+    confirmDeleteBtn.disabled = false;
+    confirmDeleteBtn.innerHTML = `
+        <i class="bi bi-trash3 me-1"></i>
+        Delete Performer
+    `;
+});
+
+
+// ============================================================
+// PROGRESS
+// ============================================================
+
+function updateProgress(
+    percent,
+    message
+) {
+
+    const value =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Math.round(percent)
+            )
+        );
+
+
+    if (uploadProgress) {
+
+        uploadProgress.style.width =
+            `${value}%`;
+
+        uploadProgress.setAttribute(
+            "aria-valuenow",
+            value
+        );
+
+    }
+
+
+    if (uploadPercent) {
+
+        uploadPercent.textContent =
+            `${value}%`;
+
+    }
+
+
+    if (uploadStatus) {
+
+        uploadStatus.textContent =
+            message;
+
+    }
+
+}
+
+
+// ============================================================
+// RESET BUTTON
+// ============================================================
+
+resetBtn.addEventListener(
+    "click",
+    () => {
+
+        resetForm();
+
+    }
+);
+
+
+// ============================================================
+// RESET FORM
+// ============================================================
+
+function resetForm() {
+
+    performerForm.reset();
+
+
+    performerForm.classList.remove(
+        "was-validated"
+    );
+
+
+    // --------------------------------------------------------
+    // RESET IMAGE
+    // --------------------------------------------------------
+
+    croppedImageFile =
+        null;
+
+
+    performerImage.value =
+        "";
+
+
+    imagePreview.src =
+        "";
+
+    imagePreview.style.display =
+        "none";
+
+
+    uploadPlaceholder.style.display =
+        "block";
+
+
+    imageInfo.innerHTML =
+        "";
+
+
+    // --------------------------------------------------------
+    // RESET PASSWORD
+    // --------------------------------------------------------
+
+    if (uploadPassword) {
+        uploadPassword.value = "";
+    }
+
+
+    // --------------------------------------------------------
+    // RESET ACTIVE
+    // --------------------------------------------------------
+
+    performerActive.checked =
+        true;
+
+
+    // --------------------------------------------------------
+    // RESET DESCRIPTION COUNT
+    // --------------------------------------------------------
+
+    descriptionCount.textContent =
+        "0 / 1000";
+
+
+    // --------------------------------------------------------
+    // RESET ALERT
+    // --------------------------------------------------------
+
+    hideFormAlert();
+
+
+    // --------------------------------------------------------
+    // RESET PROGRESS
+    // --------------------------------------------------------
+
+    updateProgress(
+        0,
+        "Ready"
+    );
+
+}
+
+
+// ============================================================
+// FORMAT TEXT
+// ============================================================
+
+function formatText(value) {
+    if (!value) return "";
+    return String(value)
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+
+// ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// ============================================================
+// PREVENT ACCIDENTAL PAGE LEAVE DURING UPLOAD
+// ============================================================
+
+let uploadInProgress =
+    false;
+
+
+window.addEventListener(
+    "beforeunload",
+    (e) => {
+
+        if (!uploadInProgress) {
+            return;
+        }
+
+        e.preventDefault();
+
+        e.returnValue =
+            "";
+
+    }
+);
+
+
+</script>
+
+
+
+<!-- Header / Footer -->
+
+<script src="includes/include.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/logo2.png">
+
+    <title>Dooars Monsoon Music & Cultural Festival</title>
+
+    <!-- Bootstrap 5.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Performer Gallery Styles */
+        .performer-gallery-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(0,0,0,.06);
+            transition: background .2s ease;
+            border-radius: 10px;
+        }
+
+        .performer-gallery-item:hover {
+            background: rgba(13,110,253,.04);
+        }
+
+        .performer-gallery-item:last-child {
+            border-bottom: 0;
+        }
+
+        .performer-gallery-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+
+        .performer-gallery-name {
+            font-weight: 600;
+            font-size: .9rem;
+            margin-bottom: 0;
+        }
+
+        .performer-gallery-type {
+            font-size: .75rem;
+            color: #888;
+        }
+
+        .performer-gallery-empty {
+            padding: 30px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .performer-gallery-empty i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .update-list-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,.05);
+        }
+
+        .update-list-item:last-child {
+            border-bottom: 0;
+        }
+
+        .update-list-title {
+            font-weight: 600;
+            font-size: .9rem;
+            margin-bottom: 2px;
+        }
+
+        .update-list-meta {
+            font-size: .75rem;
+            color: #888;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+        }
+
+        .update-list-meta .badge {
+            font-size: .6rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+        }
+
+        .update-list-description {
+            font-size: .85rem;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .update-empty {
+            padding: 30px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .update-empty i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .important-link-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 12px;
+            transition: all .3s ease;
+            text-decoration: none;
+            color: #333;
+            background: rgba(255,255,255,.6);
+            border: 1px solid rgba(0,0,0,.06);
+        }
+
+        .important-link-item:hover {
+            background: rgba(13,110,253,.08);
+            border-color: rgba(13,110,253,.2);
+            transform: translateX(6px);
+        }
+
+        .important-link-item i {
+            font-size: 1.3rem;
+            color: #0d6efd;
+            margin-right: 12px;
+        }
+
+        .important-link-item .link-text {
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+        .important-link-item .link-sub {
+            font-size: .75rem;
+            color: #888;
+        }
+
+        .festival-detail-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,.05);
+        }
+
+        .festival-detail-item:last-child {
+            border-bottom: 0;
+        }
+
+        .festival-detail-item i {
+            font-size: 1.2rem;
+            color: #0d6efd;
+            margin-right: 12px;
+            margin-top: 2px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .festival-detail-item .detail-label {
+            font-weight: 600;
+            font-size: .85rem;
+            color: #555;
+        }
+
+        .festival-detail-item .detail-value {
+            font-size: .9rem;
+            color: #333;
+        }
+
+        .section-card {
+            border: 0;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.479);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+            height: 100%;
+        }
+
+        .section-card .card-header-custom {
+            padding: 16px 20px;
+            border-bottom: 2px solid rgba(0,0,0,.06);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .section-card .card-body-custom {
+            padding: 16px 20px;
+        }
+
+        .view-all-link {
+            font-size: .8rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+           PERFORMER CAROUSEL SLIDER - 500px
+        ========================================================= */
+        .performer-slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #1a1a2e;
+            aspect-ratio: 1 / 1;
+        }
+
+        .performer-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .performer-slide.active {
+            opacity: 1;
+        }
+
+        .performer-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .performer-slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 24px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            color: #fff;
+        }
+
+        .performer-slide-overlay .slide-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .performer-slide-overlay .slide-type {
+            font-size: .85rem;
+            opacity: 0.85;
+        }
+
+        /* Slider Navigation Dots */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ccc;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all .3s ease;
+        }
+
+        .slider-dot.active {
+            background: #0d6efd;
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        .slider-dot:hover {
+            background: #0d6efd;
+        }
+
+        /* Slider Controls */
+        .slider-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all .3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-control:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .slider-control.prev {
+            left: 12px;
+        }
+
+        .slider-control.next {
+            right: 12px;
+        }
+
+        .performer-slider-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .performer-slider-empty i {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: block;
+            color: #666;
+        }
+
+        /* Fallback for missing images */
+        .slide-fallback {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: #2d2d44;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #888;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slide-fallback i {
+            font-size: 4rem;
+            color: #555;
+        }
+
+        .slide-fallback span {
+            font-size: 1rem;
+            margin-top: 8px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .performer-slide-overlay .slide-name {
+                font-size: 1.1rem;
+            }
+            
+            .slider-control {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            
+            .slider-control.prev {
+                left: 8px;
+            }
+            
+            .slider-control.next {
+                right: 8px;
+            }
+
+            .performer-slider-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Decorative Stick Background -->
+<div id="stick-bg">
+
+    <!-- Left Side -->
+    <img src="images/stick.png" class="stick stick-left-1" alt="">
+    <img src="images/stick.png" class="stick stick-left-2" alt="">
+
+    <!-- Right Side -->
+    <img src="images/stick.png" class="stick stick-right-1" alt="">
+    <img src="images/stick.png" class="stick stick-right-2" alt="">
+
+</div>
+
+
+<!-- Warli Background -->
+<div id="warli-bg"></div>
+
+<!-- HEADER --> 
+ <div id="site-header"></div>
+
+<!-- main-content -->
+<!-- FESTIVAL COUNTDOWN -->
+<div class="container main-content">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-auto text-center">
+
+            <div class="fw-bold mb-3">
+                <i class="bi bi-hourglass-split"></i>
+                FESTIVAL BEGINS IN
+            </div>
+
+            <div id="countdown"
+                 class="d-flex justify-content-center align-items-center gap-2">
+
+                <div class="count-box text-center px-3 py-2 rounded-4">
+                    <span id="days" class="d-block fs-3 fw-bold lh-1">00</span>
+                    <small>DAYS</small>
+                </div>
+
+                <div class="count-box text-center px-3 py-2 rounded-4">
+                    <span id="hours" class="d-block fs-3 fw-bold lh-1">00</span>
+                    <small>HRS</small>
+                </div>
+
+                <div class="count-box text-center px-3 py-2 rounded-4">
+                    <span id="minutes" class="d-block fs-3 fw-bold lh-1">00</span>
+                    <small>MIN</small>
+                </div>
+
+                <div class="count-box text-center px-3 py-2 rounded-4">
+                    <span id="seconds" class="d-block fs-3 fw-bold lh-1">00</span>
+                    <small>SEC</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- ROW 1: LATEST UPDATES + IMPORTANT LINKS       -->
+    <!-- ============================================= -->
+    <div class="row g-4 mt-4">
+
+        <!-- LATEST UPDATES -->
+        <div class="col-12 col-lg-7">
+
+            <div class="section-card card">
+
+                <div class="card-header-custom d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="bi bi-newspaper me-2"></i>
+                        Latest Updates
+                    </span>
+                    <a href="update.html" class="view-all-link text-primary">
+                        View All <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="card-body-custom" id="latestUpdatesContainer">
+                    <div class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                        <p class="text-muted mt-2 mb-0 small">Loading updates...</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- IMPORTANT LINKS -->
+        <div class="col-12 col-lg-5">
+
+            <div class="section-card card">
+
+                <div class="card-header-custom">
+                    <i class="bi bi-link-45deg me-2"></i>
+                    Important Links
+                </div>
+
+                <div class="card-body-custom">
+
+                    <a href="participate.html" class="important-link-item d-block mb-3">
+                        
+                        <div>
+                            <div class="link-text"><i class="bi bi-person-plus"></i>Participate in the Event</div>
+                            <div class="link-sub">Register yourself for the festival</div>
+                        </div>
+                    </a>
+
+                    <a href="performer.html" class="important-link-item d-block mb-3">
+                        
+                        <div>
+                            <div class="link-text"><i class="bi bi-people"></i>Who Is Participating?</div>
+                            <div class="link-sub">View all performers and artists</div>
+                        </div>
+                    </a>
+
+                    <a href="update.html" class="important-link-item d-block mb-3">
+                       
+                        <div>
+                            <div class="link-text"> <i class="bi bi-megaphone"></i>Festival Updates</div>
+                            <div class="link-sub">Latest news and announcements</div>
+                        </div>
+                    </a>
+
+                    <a href="about-us.html" class="important-link-item d-block">
+                        
+                        <div>
+                            <div class="link-text"><i class="bi bi-info-circle"></i>About the Festival</div>
+                            <div class="link-sub">Learn more about Dooars Monsoon Festival</div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- ROW 2: PERFORMER SLIDER + FESTIVAL DETAILS    -->
+    <!-- ============================================= -->
+    <div class="row g-4 mt-3 pb-5">
+
+        <!-- PERFORMER SLIDER -->
+        <div class="col-12 col-lg-7">
+
+            <div class="section-card card">
+
+                <div class="card-header-custom d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="bi bi-images me-2"></i>
+                        Featured Performers
+                    </span>
+                    <a href="performer.html" class="view-all-link text-primary">
+                        View All <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="card-body-custom">
+                    <div id="performerSliderContainer">
+                        <div class="performer-slider-container" id="performerSlider">
+                            <div class="performer-slider-empty">
+                                <i class="bi bi-music-note"></i>
+                                <p class="mb-0">Loading performers...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FESTIVAL DETAILS -->
+        <div class="col-12 col-lg-5">
+
+            <div class="section-card card">
+
+                <div class="card-header-custom">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    Festival Details
+                </div>
+
+                <div class="card-body-custom">
+
+                    <div class="festival-detail-item">
+                        <i class="bi bi-calendar3"></i>
+                        <div>
+                            <div class="detail-label">Dates</div>
+                            <div class="detail-value">28, 29, 30 August 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="festival-detail-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <div class="detail-label">Venue</div>
+                            <div class="detail-value">21 Basti, Rajabhatkhawa, Alipurduar</div>
+                        </div>
+                    </div>
+
+                    <div class="festival-detail-item">
+                        <i class="bi bi-music-note-beamed"></i>
+                        <div>
+                            <div class="detail-label">Experience</div>
+                            <div class="detail-value">Folk • Rock • Classical • Jazz • Electronic</div>
+                        </div>
+                    </div>
+
+                    <div class="festival-detail-item">
+                        <i class="bi bi-stars"></i>
+                        <div>
+                            <div class="detail-label">Experience Stall</div>
+                            <div class="detail-value">
+                                Art • Culture • Food • Handicrafts • Photography • Local Crafts
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="festival-detail-item d-none">
+                        <i class="bi bi-clock"></i>
+                        <div>
+                            <div class="detail-label">Timing</div>
+                            <div class="detail-value">4:00 PM onwards</div>
+                        </div>
+                    </div>
+
+                  <div class="festival-detail-item">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <div>
+                        <div class="detail-label">Entry Pass</div>
+                        <div class="detail-value">
+                            Single Day Pass: ₹150/-<br>
+                            Three Days Pass: ₹350/-
+                            <small class="d-block mt-1">Get Pass: (M) 8972374460</small>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- FOOTER --> 
+ <div id="site-footer"></div>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- Firebase Config -->
+    <script src="js/firebase.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+    <script src="includes/include.js"></script>
+
+    <script>
+        /* =========================================
+   DOOARS MONSOON FESTIVAL COUNTDOWN
+   28 AUGUST 2026
+========================================= */
+
+function updateFestivalCountdown() {
+
+    // Festival starts on 28 August 2026 at 12:00 AM
+    const festivalDate = new Date(
+        "2026-08-28T00:00:00+05:30"
+    ).getTime();
+
+    const now = new Date().getTime();
+
+    const difference = festivalDate - now;
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const countdownEl = document.getElementById("countdown");
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+        return;
+    }
+
+    if (difference <= 0) {
+
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+
+        return;
+    }
+
+    const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (difference / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (difference / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (difference / 1000) % 60
+    );
+
+    daysEl.textContent = String(days).padStart(2, "0");
+    hoursEl.textContent = String(hours).padStart(2, "0");
+    minutesEl.textContent = String(minutes).padStart(2, "0");
+    secondsEl.textContent = String(seconds).padStart(2, "0");
+}
+
+
+// Start immediately
+updateFestivalCountdown();
+
+// Update every second
+setInterval(updateFestivalCountdown, 1000);
+
+
+// ============================================================
+// FIX: CONVERT GOOGLE DRIVE URL TO DIRECT IMAGE URL
+// ============================================================
+
+function getDirectImageUrl(url) {
+    if (!url) return '';
+    
+    if (url.includes('drive.google.com')) {
+        let match = url.match(/\/file\/d\/([^/]+)/);
+        if (!match) {
+            match = url.match(/\/d\/([^/]+)/);
+        }
+        if (!match) {
+            match = url.match(/[?&]id=([^&]+)/);
+        }
+        if (!match) {
+            match = url.match(/open\?id=([^&]+)/);
+        }
+        
+        if (match && match[1]) {
+            const fileId = match[1];
+            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
+        }
+    }
+    return url;
+}
+
+
+// ============================================================
+// PERFORMER SLIDER
+// ============================================================
+
+let performerSlides = [];
+let currentSlideIndex = 0;
+let slideInterval = null;
+const SLIDE_INTERVAL = 4000; // 4 seconds
+
+function loadPerformerSlider() {
+    const container = document.getElementById("performerSlider");
+
+    firebase.database()
+        .ref("performer")
+        .orderByChild("active")
+        .equalTo(true)
+        .on("value", (snapshot) => {
+            const performers = [];
+
+            snapshot.forEach((child) => {
+                const data = child.val();
+                if (data && data.active === true) {
+                    performers.push({
+                        ...data,
+                        _key: child.key
+                    });
+                }
+            });
+
+            // Sort by createdAt descending
+            performers.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+            performerSlides = performers;
+            
+            if (performerSlides.length === 0) {
+                container.innerHTML = `
+                    <div class="performer-slider-empty">
+                        <i class="bi bi-music-note"></i>
+                        <p class="mb-0">No performers added yet.</p>
+                        <p class="text-muted small mt-1">Check back soon for the lineup.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            renderSlider(performers, container);
+            startAutoSlide();
+
+        }, (error) => {
+            console.error("Error loading performers:", error);
+            container.innerHTML = `
+                <div class="performer-slider-empty">
+                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                    <p class="mb-0">Unable to load performers.</p>
+                </div>
+            `;
+        });
+}
+
+
+// ============================================================
+// RENDER SLIDER
+// ============================================================
+
+function renderSlider(performers, container) {
+    let slidesHtml = '';
+    let dotsHtml = '';
+
+    performers.forEach((performer, index) => {
+        // Fix: Convert to direct image URL using the same function as performer.html
+        const imageUrl = getDirectImageUrl(performer.image);
+        const name = escapeHtml(performer.name || 'Unnamed Performer');
+        const type = escapeHtml(formatText(performer.type || 'Artist'));
+        const isActive = index === 0 ? 'active' : '';
+
+        slidesHtml += `
+            <div class="performer-slide ${isActive}" data-index="${index}">
+                <img 
+                    src="${escapeHtml(imageUrl)}" 
+                    alt="${name}"
+                    onerror="this.style.display='none'; this.parentElement.querySelector('.slide-fallback').style.display='flex';"
+                >
+                <div class="slide-fallback">
+                    <i class="bi bi-person"></i>
+                    <span>Image not available</span>
+                </div>
+                <div class="performer-slide-overlay">
+                    <div class="slide-name">${name}</div>
+                    <div class="slide-type">${type}</div>
+                </div>
+            </div>
+        `;
+
+        dotsHtml += `
+            <button class="slider-dot ${isActive}" data-index="${index}" aria-label="Slide ${index + 1}"></button>
+        `;
+    });
+
+    container.innerHTML = `
+        <div class="performer-slider-container">
+            ${slidesHtml}
+            <button class="slider-control prev" aria-label="Previous">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="slider-control next" aria-label="Next">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+        <div class="slider-dots">
+            ${dotsHtml}
+        </div>
+    `;
+
+    // Add event listeners
+    const prevBtn = container.querySelector('.slider-control.prev');
+    const nextBtn = container.querySelector('.slider-control.next');
+    const dots = container.querySelectorAll('.slider-dot');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            goToSlide(currentSlideIndex - 1);
+            startAutoSlide();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            goToSlide(currentSlideIndex + 1);
+            startAutoSlide();
+        });
+    }
+
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            stopAutoSlide();
+            const index = parseInt(dot.getAttribute('data-index'));
+            goToSlide(index);
+            startAutoSlide();
+        });
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const slider = container.querySelector('.performer-slider-container');
+
+    if (slider) {
+        slider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        slider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+    }
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            stopAutoSlide();
+            if (diff > 0) {
+                goToSlide(currentSlideIndex + 1);
+            } else {
+                goToSlide(currentSlideIndex - 1);
+            }
+            startAutoSlide();
+        }
+    }
+
+    // Initialize
+    currentSlideIndex = 0;
+}
+
+
+// ============================================================
+// GO TO SLIDE
+// ============================================================
+
+function goToSlide(index) {
+    const slides = document.querySelectorAll('.performer-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+
+    if (!slides || slides.length === 0) return;
+
+    // Handle wraparound
+    if (index < 0) {
+        index = slides.length - 1;
+    } else if (index >= slides.length) {
+        index = 0;
+    }
+
+    // Remove active class from all slides and dots
+    slides.forEach((slide) => slide.classList.remove('active'));
+    dots.forEach((dot) => dot.classList.remove('active'));
+
+    // Add active class to current slide and dot
+    slides[index].classList.add('active');
+    if (dots[index]) {
+        dots[index].classList.add('active');
+    }
+
+    currentSlideIndex = index;
+}
+
+
+// ============================================================
+// AUTO SLIDE
+// ============================================================
+
+function startAutoSlide() {
+    stopAutoSlide();
+    slideInterval = setInterval(() => {
+        goToSlide(currentSlideIndex + 1);
+    }, SLIDE_INTERVAL);
+}
+
+function stopAutoSlide() {
+    if (slideInterval) {
+        clearInterval(slideInterval);
+        slideInterval = null;
+    }
+}
+
+
+// ============================================================
+// LOAD LATEST UPDATES
+// ============================================================
+
+function loadLatestUpdates() {
+    const container = document.getElementById("latestUpdatesContainer");
+
+    firebase.database()
+        .ref("updates")
+        .orderByChild("createdAt")
+        .limitToLast(5)
+        .on("value", (snapshot) => {
+            const updates = [];
+
+            snapshot.forEach((child) => {
+                const data = child.val();
+                if (data) {
+                    updates.push({
+                        ...data,
+                        _key: child.key
+                    });
+                }
+            });
+
+            // Sort descending (newest first)
+            updates.reverse();
+
+            renderLatestUpdates(updates, container);
+
+        }, (error) => {
+            console.error("Error loading updates:", error);
+            container.innerHTML = `
+                <div class="update-empty">
+                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                    <p class="mb-0">Unable to load updates.</p>
+                </div>
+            `;
+        });
+}
+
+
+// ============================================================
+// RENDER LATEST UPDATES
+// ============================================================
+
+function renderLatestUpdates(updates, container) {
+    if (!updates || updates.length === 0) {
+        container.innerHTML = `
+            <div class="update-empty">
+                <i class="bi bi-newspaper"></i>
+                <p class="mb-0">No updates yet.</p>
+                <p class="text-muted small mt-1">Check back soon for festival news.</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+
+    updates.forEach((update) => {
+        const typeBadge = getTypeBadge(update.type);
+        const formattedDate = formatDate(update.createdAt);
+
+        html += `
+            <div class="update-list-item">
+                <div class="update-list-meta">
+                    ${typeBadge}
+                    <span>${formattedDate}</span>
+                </div>
+                <div class="update-list-title">
+                    ${escapeHtml(update.title || 'Untitled')}
+                </div>
+                ${update.description ? `
+                    <div class="update-list-description">
+                        ${escapeHtml(update.description)}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+
+// ============================================================
+// GET TYPE BADGE
+// ============================================================
+
+function getTypeBadge(type) {
+    const badgeColors = {
+        'notice': 'bg-warning text-dark',
+        'announcement': 'bg-info text-dark',
+        'update': 'bg-primary',
+        'news': 'bg-success',
+        'event': 'bg-danger',
+        'other': 'bg-secondary'
+    };
+
+    const color = badgeColors[type] || 'bg-secondary';
+    const label = formatText(type || 'Other');
+
+    return `<span class="badge ${color}">${label}</span>`;
+}
+
+
+// ============================================================
+// FORMAT DATE
+// ============================================================
+
+function formatDate(timestamp) {
+    if (!timestamp) return 'Date not available';
+    
+    const date = new Date(timestamp);
+    
+    if (isNaN(date.getTime())) return 'Date not available';
+    
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    };
+    
+    return date.toLocaleDateString('en-US', options);
+}
+
+
+// ============================================================
+// FORMAT TEXT
+// ============================================================
+
+function formatText(value) {
+    if (!value) return "";
+    return String(value)
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+
+// ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+// ============================================================
+// INITIALIZE
+// ============================================================
+
+// Load data when page is ready
+document.addEventListener('DOMContentLoaded', function() {
+    loadLatestUpdates();
+    loadPerformerSlider();
+});
+
+
+// ============================================================
+// CLEANUP LISTENERS ON PAGE UNLOAD
+// ============================================================
+
+window.addEventListener('beforeunload', function() {
+    // Detach Firebase listeners
+    firebase.database().ref("updates").off();
+    firebase.database().ref("performer").off();
+    stopAutoSlide();
+});
+
+    </script>
+
+</body>
+
+</html>

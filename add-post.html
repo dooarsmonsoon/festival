@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Post - Dooars Monsoon Festival</title>
+    <link rel="icon" type="image/png" href="images/logo2.png">
+
+    <!-- Bootstrap 5.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <style>
+
+        .post-wrapper {
+            min-height: 75vh;
+            padding: 40px 0;
+        }
+
+
+        .post-card {
+            border: 0;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.185);
+            backdrop-filter: blur(10px);
+        }
+
+
+        #adminContent {
+            display: none;
+        }
+
+
+        #loginSection {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            border: 0;
+            border-radius: 22px;
+        }
+
+
+        /* Post List Styles */
+        .post-list-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0,0,0,.06);
+            transition: background .2s ease;
+        }
+
+        .post-list-item:hover {
+            background: rgba(13,110,253,.04);
+        }
+
+        .post-list-item:last-child {
+            border-bottom: 0;
+        }
+
+        .post-list-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .post-list-title {
+            font-weight: 600;
+            font-size: .95rem;
+            margin-bottom: 2px;
+        }
+
+        .post-list-meta {
+            font-size: .8rem;
+            color: #888;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .post-list-meta .badge {
+            font-size: .7rem;
+            font-weight: 500;
+        }
+
+        .post-list-actions {
+            flex-shrink: 0;
+            margin-left: 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .post-list-actions .btn {
+            padding: 4px 10px;
+            font-size: .8rem;
+        }
+
+        .post-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 2px solid rgba(0,0,0,.08);
+            background: rgba(248,249,250,.5);
+            border-radius: 18px 18px 0 0;
+        }
+
+        .post-list-body {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .post-list-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .post-list-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .post-list-body::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+
+        .post-list-body::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .empty-post-list {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .empty-post-list i {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .post-list-count {
+            font-size: .85rem;
+            color: #666;
+        }
+
+        .post-content-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: .85rem;
+            color: #666;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     DECORATIVE BACKGROUND
+========================================= -->
+
+<div id="stick-bg">
+
+    <img src="images/stick.png"
+         class="stick stick-left-1"
+         alt="">
+
+    <img src="images/stick.png"
+         class="stick stick-left-2"
+         alt="">
+
+    <img src="images/stick.png"
+         class="stick stick-right-1"
+         alt="">
+
+    <img src="images/stick.png"
+         class="stick stick-right-2"
+         alt="">
+
+</div>
+
+
+<div id="warli-bg"></div>
+
+
+<!-- HEADER -->
+
+<div id="site-header"></div>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<div class="container post-wrapper">
+
+
+    <!-- =====================================
+         ADMIN LOGIN
+    ====================================== -->
+
+    <div id="loginSection">
+
+        <div class="card login-card shadow-lg">
+
+            <div class="card-body p-4 p-md-5">
+
+                <div class="text-center mb-4">
+
+                    <i class="bi bi-shield-lock-fill fs-1"></i>
+
+                    <h3 class="fw-bold mt-2">
+                        Admin Sign In
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Post Management
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm">
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginEmail"
+                            class="form-label fw-semibold">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            class="form-control form-control-sm"
+                            placeholder="Admin email"
+                            required>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginPassword"
+                            class="form-label fw-semibold">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            class="form-control form-control-sm"
+                            placeholder="Password"
+                            required>
+
+                    </div>
+
+
+                    <div
+                        id="loginAlert"
+                        class="alert d-none">
+                    </div>
+
+
+                    <div class="d-grid">
+
+                        <button
+                            type="submit"
+                            id="loginBtn"
+                            class="btn btn-primary btn-lg">
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                            Sign In
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         ADMIN CONTENT
+    ====================================== -->
+
+    <div id="adminContent">
+
+        <!-- =====================================
+             POST FORM
+        ====================================== -->
+
+        <div class="card post-card shadow-lg mb-4">
+
+            <div class="btn-group" role="group">
+            <a type="button" href="admin.html" class="btn btn-primary">Admin</a>
+            <a type="button" href="add-performer.html" class="btn btn-success">Participate</a>
+            <button type="button" id="logoutBtn" class="btn btn-danger">Logout</button>
+           </div>
+
+            <div class="card-body p-4 p-md-5">
+
+
+                <form id="postForm"
+                      novalidate>
+
+
+                    <!-- =========================
+                         POST TYPE
+                    ========================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="postType"
+                            class="form-label fw-semibold">
+
+                            Post Type
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <select
+                            id="postType"
+                            class="form-select form-select-sm"
+                            required>
+
+                            <option
+                                value=""
+                                selected
+                                disabled>
+
+                                Select post type
+
+                            </option>
+
+                            <option value="notice">
+                                Notice
+                            </option>
+
+                            <option value="announcement">
+                                Announcement
+                            </option>
+
+                            <option value="update">
+                                Update
+                            </option>
+
+                            <option value="news">
+                                News
+                            </option>
+
+                            <option value="event">
+                                Event
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                        <div class="invalid-feedback">
+                            Please select post type.
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         TITLE
+                    ========================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="postTitle"
+                            class="form-label fw-semibold">
+
+                            Title
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="postTitle"
+                            class="form-control form-control-sm"
+                            placeholder="Enter post title"
+                            maxlength="200"
+                            required>
+
+                        <div class="invalid-feedback">
+                            Please enter a title.
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         DESCRIPTION
+                    ========================== -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="postDescription"
+                            class="form-label fw-semibold">
+
+                            Description
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+                        <textarea
+                            id="postDescription"
+                            class="form-control"
+                            rows="6"
+                            maxlength="5000"
+                            placeholder="Write your post content here..."
+                            required></textarea>
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    mt-1">
+
+                            <div class="invalid-feedback">
+                                Please enter a description.
+                            </div>
+
+                            <small
+                                id="descriptionCount"
+                                class="text-muted ms-auto">
+
+                                0 / 5000
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         ALERT
+                    ========================== -->
+
+                    <div
+                        id="formAlert"
+                        class="alert d-none">
+                    </div>
+
+
+
+                    <!-- =========================
+                         BUTTONS
+                    ========================== -->
+
+                    <div class="d-flex
+                                flex-column
+                                flex-sm-row
+                                gap-2">
+
+                        <button
+                            type="submit"
+                            id="submitBtn"
+                            class="btn btn-primary btn-lg flex-fill">
+
+                            <i class="bi bi-save-fill me-2"></i>
+
+                            Save Post
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="resetBtn"
+                            class="btn btn-outline-secondary btn-lg">
+
+                            <i class="bi bi-arrow-counterclockwise me-2"></i>
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             POST LIST
+        ====================================== -->
+
+        <div class="card post-card shadow-lg">
+
+            <div class="card-body p-4">
+
+                <div class="post-list-header">
+                    <div>
+                        <h5 class="fw-bold mb-0">
+                            <i class="bi bi-list-ul me-2"></i>
+                            All Posts
+                        </h5>
+                        <small class="text-muted">Manage existing posts</small>
+                    </div>
+                    <span id="totalPostCount" class="post-list-count">
+                        <i class="bi bi-file-text me-1"></i>
+                        <span id="postCountNumber">0</span>
+                    </span>
+                </div>
+
+                <div id="postListContainer" class="post-list-body">
+                    <!-- Post list will be rendered here -->
+                    <div class="empty-post-list">
+                        <i class="bi bi-inbox"></i>
+                        <p class="mb-0">No posts added yet.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     EDIT MODAL
+========================================= -->
+
+<div class="modal fade"
+     id="editPostModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 rounded-4">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    Edit Post
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="editPostForm">
+
+                    <div class="mb-3">
+
+                        <label
+                            for="editPostType"
+                            class="form-label fw-semibold">
+
+                            Post Type
+
+                        </label>
+
+                        <select
+                            id="editPostType"
+                            class="form-select form-select-sm">
+
+                            <option value="notice">
+                                Notice
+                            </option>
+
+                            <option value="announcement">
+                                Announcement
+                            </option>
+
+                            <option value="update">
+                                Update
+                            </option>
+
+                            <option value="news">
+                                News
+                            </option>
+
+                            <option value="event">
+                                Event
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label
+                            for="editPostTitle"
+                            class="form-label fw-semibold">
+
+                            Title
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editPostTitle"
+                            class="form-control form-control-sm"
+                            maxlength="200"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label
+                            for="editPostDescription"
+                            class="form-label fw-semibold">
+
+                            Description
+
+                        </label>
+
+                        <textarea
+                            id="editPostDescription"
+                            class="form-control"
+                            rows="6"
+                            maxlength="5000"></textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveEditBtn">
+
+                    <i class="bi bi-save me-1"></i>
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     DELETE CONFIRMATION MODAL
+========================================= -->
+
+<div class="modal fade"
+     id="deleteConfirmModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 rounded-4">
+
+            <div class="modal-header border-0">
+
+                <h5 class="modal-title fw-bold text-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Confirm Delete
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body text-center py-4">
+
+                <i class="bi bi-trash3-fill text-danger" style="font-size: 3.5rem;"></i>
+
+                <h5 class="fw-bold mt-3">Delete Post?</h5>
+
+                <p class="text-muted mb-0">
+                    Are you sure you want to delete
+                    <br>
+                    <strong id="deletePostTitle" class="text-dark">"Post Title"</strong>
+                    <br>
+                    <span class="text-danger small">This action cannot be undone.</span>
+                </p>
+
+            </div>
+
+
+            <div class="modal-footer border-0 justify-content-center">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    <i class="bi bi-x-circle me-1"></i>
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmDeleteBtn">
+
+                    <i class="bi bi-trash3 me-1"></i>
+                    Delete Post
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- FOOTER -->
+
+<div id="site-footer"></div>
+
+
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<!-- Firebase -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js">
+</script>
+
+
+
+<!-- Firebase Config -->
+<script src="js/script.js"></script>
+<script src="js/firebase.js"></script>
+
+
+<!-- Post Script -->
+
+<script>
+
+
+// ============================================================
+// ADD POST
+// Dooars Monsoon Music & Cultural Festival
+// ============================================================
+
+
+// ============================================================
+// CONFIGURATION
+// ============================================================
+
+const ADMIN_EMAIL = "team.dooarsmonsoonfestival@gmail.com";
+
+
+// ============================================================
+// GLOBAL VARIABLES
+// ============================================================
+
+let editModal = null;
+
+let deleteModal = null;
+
+let postToEdit = null;
+
+let postToDelete = null;
+
+let allPosts = [];
+
+
+// ============================================================
+// DOM ELEMENTS
+// ============================================================
+
+const loginSection =
+    document.getElementById("loginSection");
+
+const adminContent =
+    document.getElementById("adminContent");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginEmail =
+    document.getElementById("loginEmail");
+
+const loginPassword =
+    document.getElementById("loginPassword");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const loginAlert =
+    document.getElementById("loginAlert");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+const postForm =
+    document.getElementById("postForm");
+
+const postType =
+    document.getElementById("postType");
+
+const postTitle =
+    document.getElementById("postTitle");
+
+const postDescription =
+    document.getElementById("postDescription");
+
+const descriptionCount =
+    document.getElementById("descriptionCount");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+const formAlert =
+    document.getElementById("formAlert");
+
+
+// Post List Elements
+const postListContainer =
+    document.getElementById("postListContainer");
+
+const postCountNumber =
+    document.getElementById("postCountNumber");
+
+
+// ============================================================
+// EDIT MODAL ELEMENTS
+// ============================================================
+
+const editModalElement =
+    document.getElementById("editPostModal");
+
+const editPostType =
+    document.getElementById("editPostType");
+
+const editPostTitle =
+    document.getElementById("editPostTitle");
+
+const editPostDescription =
+    document.getElementById("editPostDescription");
+
+const saveEditBtn =
+    document.getElementById("saveEditBtn");
+
+
+// ============================================================
+// DELETE MODAL ELEMENTS
+// ============================================================
+
+const deleteModalElement =
+    document.getElementById("deleteConfirmModal");
+
+const deletePostTitle =
+    document.getElementById("deletePostTitle");
+
+const confirmDeleteBtn =
+    document.getElementById("confirmDeleteBtn");
+
+
+// ============================================================
+// INITIALIZE BOOTSTRAP MODALS
+// ============================================================
+
+if (editModalElement) {
+
+    editModal =
+        new bootstrap.Modal(
+            editModalElement,
+            {
+                backdrop: "static",
+                keyboard: true
+            }
+        );
+
+}
+
+if (deleteModalElement) {
+
+    deleteModal =
+        new bootstrap.Modal(
+            deleteModalElement,
+            {
+                backdrop: "static",
+                keyboard: true
+            }
+        );
+
+}
+
+
+// ============================================================
+// LOGIN ALERT
+// ============================================================
+
+function showLoginAlert(
+    message,
+    type = "danger"
+) {
+
+    loginAlert.className =
+        `alert alert-${type}`;
+
+    loginAlert.innerHTML =
+        message;
+
+}
+
+
+function hideLoginAlert() {
+
+    loginAlert.className =
+        "alert d-none";
+
+    loginAlert.innerHTML =
+        "";
+
+}
+
+
+// ============================================================
+// FORM ALERT
+// ============================================================
+
+function showFormAlert(
+    message,
+    type = "danger"
+) {
+
+    formAlert.className =
+        `alert alert-${type}`;
+
+    formAlert.innerHTML =
+        message;
+
+}
+
+
+function hideFormAlert() {
+
+    formAlert.className =
+        "alert d-none";
+
+    formAlert.innerHTML =
+        "";
+
+}
+
+
+// ============================================================
+// FIREBASE AUTH STATE
+// ============================================================
+
+firebase.auth().onAuthStateChanged(
+    async (user) => {
+
+        if (!user) {
+
+            loginSection.style.display =
+                "flex";
+
+            adminContent.style.display =
+                "none";
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // ADMIN EMAIL CHECK
+        // ----------------------------------------------------
+
+        if (
+            !user.email ||
+            user.email.toLowerCase() !==
+            ADMIN_EMAIL.toLowerCase()
+        ) {
+
+            await firebase.auth().signOut();
+
+            loginSection.style.display =
+                "flex";
+
+            adminContent.style.display =
+                "none";
+
+            showLoginAlert(
+                `
+                <i class="bi bi-shield-x me-2"></i>
+                You are not authorized to access this page.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // ADMIN ALLOWED
+        // ----------------------------------------------------
+
+        loginSection.style.display =
+            "none";
+
+        adminContent.style.display =
+            "block";
+
+        // Load posts when admin logs in (using realtime listener)
+        loadPostList();
+
+    }
+);
+
+
+// ============================================================
+// ADMIN LOGIN
+// ============================================================
+
+loginForm.addEventListener(
+    "submit",
+    async (e) => {
+
+        e.preventDefault();
+
+        hideLoginAlert();
+
+
+        const email =
+            loginEmail.value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            loginPassword.value;
+
+
+        if (email !==
+            ADMIN_EMAIL.toLowerCase()
+        ) {
+
+            showLoginAlert(
+                `
+                <i class="bi bi-shield-x me-2"></i>
+                Only the festival administrator can sign in here.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            showLoginAlert(
+                "Please enter your password.",
+                "danger"
+            );
+
+            return;
+        }
+
+
+        loginBtn.disabled =
+            true;
+
+
+        loginBtn.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Signing In...
+        `;
+
+
+        try {
+
+            await firebase.auth()
+                .signInWithEmailAndPassword(
+                    email,
+                    password
+                );
+
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            let message =
+                "Unable to sign in.";
+
+
+            switch (error.code) {
+
+                case "auth/wrong-password":
+
+                    message =
+                        "Incorrect password.";
+
+                    break;
+
+
+                case "auth/invalid-credential":
+
+                    message =
+                        "Invalid email or password.";
+
+                    break;
+
+
+                case "auth/user-not-found":
+
+                    message =
+                        "Admin account not found.";
+
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    message =
+                        "Invalid email address.";
+
+                    break;
+
+
+                case "auth/too-many-requests":
+
+                    message =
+                        "Too many login attempts. Please try again later.";
+
+                    break;
+
+            }
+
+
+            showLoginAlert(
+                message,
+                "danger"
+            );
+
+
+        } finally {
+
+            loginBtn.disabled =
+                false;
+
+            loginBtn.innerHTML = `
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Sign In
+            `;
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+logoutBtn.addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            await firebase.auth()
+                .signOut();
+
+        } catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// DESCRIPTION COUNTER
+// ============================================================
+
+postDescription.addEventListener(
+    "input",
+    () => {
+
+        descriptionCount.textContent =
+            `${postDescription.value.length} / 5000`;
+
+    }
+);
+
+
+// ============================================================
+// FIREBASE REALTIME LISTENER
+// ============================================================
+
+function loadPostList() {
+
+    // Show loading state
+    postListContainer.innerHTML = `
+        <div class="text-center py-4">
+            <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+            <p class="text-muted mt-2 mb-0 small">Loading posts...</p>
+        </div>
+    `;
+
+    // Remove any existing listener
+    if (window.postListener) {
+        firebase.database()
+            .ref("updates")
+            .off("value", window.postListener);
+    }
+
+    // Create the listener function
+    window.postListener = (snapshot) => {
+
+        allPosts = [];
+
+        snapshot.forEach(
+            (child) => {
+
+                const data =
+                    child.val();
+
+                if (data) {
+
+                    allPosts.push(
+                        {
+                            ...data,
+                            _key:
+                                child.key
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+        allPosts.sort(
+            (a, b) =>
+                (b.createdAt || 0) -
+                (a.createdAt || 0)
+        );
+
+        renderPostList(allPosts);
+
+    };
+
+    // Attach the listener with error handling
+    firebase.database()
+        .ref("updates")
+        .on(
+            "value",
+            window.postListener,
+            (error) => {
+
+                console.error(
+                    "Firebase post error:",
+                    error
+                );
+
+                postListContainer.innerHTML = `
+                    <div class="empty-post-list text-danger">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <h5 class="mt-3">Unable to load posts</h5>
+                        <p class="text-muted">
+                            ${escapeHtml(error.message)}
+                        </p>
+                        <p class="text-muted small mt-2">
+                            <button class="btn btn-outline-primary btn-sm mt-2" onclick="loadPostList()">
+                                <i class="bi bi-arrow-clockwise me-1"></i>
+                                Retry
+                            </button>
+                        </p>
+                    </div>
+                `;
+
+            }
+        );
+
+}
+
+
+// ============================================================
+// RENDER POST LIST
+// ============================================================
+
+function renderPostList(posts) {
+
+    postCountNumber.textContent = posts.length;
+
+    if (posts.length === 0) {
+        postListContainer.innerHTML = `
+            <div class="empty-post-list">
+                <i class="bi bi-inbox"></i>
+                <p class="mb-0">No posts added yet.</p>
+                <p class="text-muted small mt-1">Add your first post using the form above.</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+
+    posts.forEach((post) => {
+        const typeBadge = getTypeBadge(post.type);
+
+        html += `
+            <div class="post-list-item">
+                <div class="post-list-info">
+                    <div class="post-list-title">
+                        ${escapeHtml(post.title || 'Untitled')}
+                        ${typeBadge}
+                    </div>
+                    <div class="post-list-meta">
+                        <span>${formatText(post.type || 'No type')}</span>
+                        <span class="text-muted small">• ${new Date(post.createdAt || Date.now()).toLocaleDateString()}</span>
+                        <span class="text-muted small">• ${new Date(post.createdAt || Date.now()).toLocaleTimeString()}</span>
+                    </div>
+                    ${post.description ? `<div class="post-content-preview">${escapeHtml(post.description)}</div>` : ''}
+                </div>
+                <div class="post-list-actions">
+                    <button 
+                        class="btn btn-outline-primary btn-sm edit-post-btn" 
+                        data-key="${post._key}"
+                        data-type="${escapeHtml(post.type || '')}"
+                        data-title="${escapeHtml(post.title || '')}"
+                        data-description="${escapeHtml(post.description || '')}"
+                        title="Edit post"
+                    >
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button 
+                        class="btn btn-outline-danger btn-sm delete-post-btn" 
+                        data-key="${post._key}"
+                        data-title="${escapeHtml(post.title || 'Untitled')}"
+                        title="Delete post"
+                    >
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    postListContainer.innerHTML = html;
+
+    // Add event listeners to edit buttons
+    document.querySelectorAll('.edit-post-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const key = this.getAttribute('data-key');
+            const type = this.getAttribute('data-type');
+            const title = this.getAttribute('data-title');
+            const description = this.getAttribute('data-description');
+            openEditModal(key, type, title, description);
+        });
+    });
+
+    // Add event listeners to delete buttons
+    document.querySelectorAll('.delete-post-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const key = this.getAttribute('data-key');
+            const title = this.getAttribute('data-title');
+            openDeleteModal(key, title);
+        });
+    });
+
+}
+
+
+// ============================================================
+// GET TYPE BADGE
+// ============================================================
+
+function getTypeBadge(type) {
+    const badgeColors = {
+        'notice': 'bg-warning text-dark',
+        'announcement': 'bg-info text-dark',
+        'update': 'bg-primary',
+        'news': 'bg-success',
+        'event': 'bg-danger',
+        'other': 'bg-secondary'
+    };
+
+    const color = badgeColors[type] || 'bg-secondary';
+    const label = formatText(type || 'Other');
+
+    return `<span class="badge ${color} ms-2">${label}</span>`;
+}
+
+
+// ============================================================
+// OPEN EDIT MODAL
+// ============================================================
+
+function openEditModal(key, type, title, description) {
+    postToEdit = key;
+    
+    editPostType.value = type || 'notice';
+    editPostTitle.value = title || '';
+    editPostDescription.value = description || '';
+    
+    // Reset save button state
+    saveEditBtn.disabled = false;
+    saveEditBtn.innerHTML = `
+        <i class="bi bi-save me-1"></i>
+        Save Changes
+    `;
+    
+    editModal.show();
+}
+
+
+// ============================================================
+// SAVE EDIT
+// ============================================================
+
+saveEditBtn.addEventListener('click', async function() {
+    if (!postToEdit) {
+        return;
+    }
+
+    // Disable button and show loading state
+    this.disabled = true;
+    this.innerHTML = `
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Saving...
+    `;
+
+    try {
+        const type = editPostType.value;
+        const title = editPostTitle.value.trim();
+        const description = editPostDescription.value.trim();
+
+        if (!title) {
+            throw new Error('Title is required.');
+        }
+
+        // Update in Firebase
+        await firebase.database()
+            .ref(`updates/${postToEdit}`)
+            .update({
+                type: type,
+                title: title,
+                description: description,
+                updatedAt: firebase.database.ServerValue.TIMESTAMP
+            });
+
+        // Close modal
+        editModal.hide();
+
+        // Show success message
+        showFormAlert(
+            `
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong>Post updated successfully!</strong>
+            `,
+            "success"
+        );
+
+        // Clear the edited post reference
+        postToEdit = null;
+
+    } catch (error) {
+        console.error("Update error:", error);
+        
+        // Show error in modal
+        this.disabled = false;
+        this.innerHTML = `
+            <i class="bi bi-save me-1"></i>
+            Save Changes
+        `;
+
+        // Show error message
+        showFormAlert(
+            `
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong>Error:</strong>
+            ${escapeHtml(error.message)}
+            `,
+            "danger"
+        );
+    }
+});
+
+
+// ============================================================
+// RESET MODAL STATE WHEN CLOSED
+// ============================================================
+
+editModalElement.addEventListener('hidden.bs.modal', function() {
+    postToEdit = null;
+    saveEditBtn.disabled = false;
+    saveEditBtn.innerHTML = `
+        <i class="bi bi-save me-1"></i>
+        Save Changes
+    `;
+});
+
+
+// ============================================================
+// OPEN DELETE MODAL
+// ============================================================
+
+function openDeleteModal(key, title) {
+    postToDelete = key;
+    deletePostTitle.textContent = `"${title}"`;
+    
+    // Reset confirm button state
+    confirmDeleteBtn.disabled = false;
+    confirmDeleteBtn.innerHTML = `
+        <i class="bi bi-trash3 me-1"></i>
+        Delete Post
+    `;
+    
+    deleteModal.show();
+}
+
+
+// ============================================================
+// CONFIRM DELETE
+// ============================================================
+
+confirmDeleteBtn.addEventListener('click', async function() {
+    if (!postToDelete) {
+        return;
+    }
+
+    // Disable button and show loading state
+    this.disabled = true;
+    this.innerHTML = `
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Deleting...
+    `;
+
+    try {
+        // Delete from Firebase
+        await firebase.database()
+            .ref(`updates/${postToDelete}`)
+            .remove();
+
+        // Close modal
+        deleteModal.hide();
+
+        // Show success message
+        showFormAlert(
+            `
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong>Post deleted successfully!</strong>
+            `,
+            "success"
+        );
+
+        // Clear the deleted post reference
+        postToDelete = null;
+
+    } catch (error) {
+        console.error("Delete error:", error);
+        
+        // Show error in modal
+        this.disabled = false;
+        this.innerHTML = `
+            <i class="bi bi-trash3 me-1"></i>
+            Delete Post
+        `;
+
+        // Show error message
+        showFormAlert(
+            `
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong>Error:</strong>
+            Failed to delete post. Please try again.
+            `,
+            "danger"
+        );
+    }
+});
+
+
+// ============================================================
+// RESET MODAL STATE WHEN CLOSED
+// ============================================================
+
+deleteModalElement.addEventListener('hidden.bs.modal', function() {
+    postToDelete = null;
+    confirmDeleteBtn.disabled = false;
+    confirmDeleteBtn.innerHTML = `
+        <i class="bi bi-trash3 me-1"></i>
+        Delete Post
+    `;
+});
+
+
+// ============================================================
+// SUBMIT POST
+// ============================================================
+
+postForm.addEventListener(
+    "submit",
+    async (e) => {
+
+        e.preventDefault();
+
+        hideFormAlert();
+
+
+        // --------------------------------------------------------
+        // GET VALUES
+        // --------------------------------------------------------
+
+        const type =
+            postType.value;
+
+        const title =
+            postTitle.value.trim();
+
+        const description =
+            postDescription.value.trim();
+
+
+        // --------------------------------------------------------
+        // VALIDATION
+        // --------------------------------------------------------
+
+        postForm.classList.add(
+            "was-validated"
+        );
+
+
+        if (
+            !postForm.checkValidity()
+        ) {
+
+            showFormAlert(
+                `
+                <i class="bi bi-exclamation-circle me-2"></i>
+                Please complete all required fields.
+                `,
+                "danger"
+            );
+
+            return;
+        }
+
+
+        // --------------------------------------------------------
+        // BUTTON STATE
+        // --------------------------------------------------------
+
+        const originalHtml =
+            submitBtn.innerHTML;
+
+
+        submitBtn.disabled =
+            true;
+
+        resetBtn.disabled =
+            true;
+
+
+        submitBtn.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Saving...
+        `;
+
+
+        try {
+
+            // ====================================================
+            // CHECK CURRENT USER
+            // ====================================================
+
+            const user =
+                firebase.auth()
+                    .currentUser;
+
+
+            if (!user) {
+
+                throw new Error(
+                    "Admin session expired. Please sign in again."
+                );
+
+            }
+
+
+            if (
+                !user.email ||
+                user.email.toLowerCase() !==
+                ADMIN_EMAIL.toLowerCase()
+            ) {
+
+                throw new Error(
+                    "You are not authorized to add posts."
+                );
+
+            }
+
+
+            // ====================================================
+            // CREATE FIREBASE ID
+            // ====================================================
+
+            const postRef =
+                firebase.database()
+                    .ref("updates")
+                    .push();
+
+
+            const postId =
+                postRef.key;
+
+
+            // ====================================================
+            // FIREBASE DATA
+            // ====================================================
+
+            const postData = {
+
+                id:
+                    postId,
+
+                type:
+                    type,
+
+                title:
+                    title,
+
+                description:
+                    description,
+
+                createdAt:
+                    firebase.database
+                        .ServerValue
+                        .TIMESTAMP,
+
+                updatedAt:
+                    firebase.database
+                        .ServerValue
+                        .TIMESTAMP
+
+            };
+
+
+            // ====================================================
+            // SAVE FIREBASE
+            // ====================================================
+
+            await postRef.set(
+                postData
+            );
+
+
+            // ====================================================
+            // COMPLETE
+            // ====================================================
+
+
+            showFormAlert(
+                `
+                <i class="bi bi-check-circle-fill me-2"></i>
+
+                <strong>Post added successfully!</strong>
+
+                `,
+                "success"
+            );
+
+
+            // ====================================================
+            // RESET AFTER SUCCESS
+            // ====================================================
+
+            setTimeout(
+                () => {
+
+                    resetForm();
+
+                },
+                1500
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Add post error:",
+                error
+            );
+
+
+            showFormAlert(
+                `
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                <strong>Error:</strong>
+
+                ${escapeHtml(error.message)}
+
+                `,
+                "danger"
+            );
+
+
+        } finally {
+
+            submitBtn.disabled =
+                false;
+
+            resetBtn.disabled =
+                false;
+
+            submitBtn.innerHTML =
+                originalHtml;
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// RESET BUTTON
+// ============================================================
+
+resetBtn.addEventListener(
+    "click",
+    () => {
+
+        resetForm();
+
+    }
+);
+
+
+// ============================================================
+// RESET FORM
+// ============================================================
+
+function resetForm() {
+
+    postForm.reset();
+
+
+    postForm.classList.remove(
+        "was-validated"
+    );
+
+
+    // --------------------------------------------------------
+    // RESET DESCRIPTION COUNT
+    // --------------------------------------------------------
+
+    descriptionCount.textContent =
+        "0 / 5000";
+
+
+    // --------------------------------------------------------
+    // RESET ALERT
+    // --------------------------------------------------------
+
+    hideFormAlert();
+
+}
+
+
+// ============================================================
+// FORMAT TEXT
+// ============================================================
+
+function formatText(value) {
+    if (!value) return "";
+    return String(value)
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+
+// ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// ============================================================
+// CLEANUP LISTENER ON PAGE UNLOAD
+// ============================================================
+
+window.addEventListener('beforeunload', function() {
+    if (window.postListener) {
+        firebase.database()
+            .ref("updates")
+            .off("value", window.postListener);
+    }
+});
+
+
+</script>
+
+
+
+<!-- Header / Footer -->
+
+<script src="includes/include.js"></script>
+
+
+</body>
+
+</html>

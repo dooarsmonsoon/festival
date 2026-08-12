@@ -1,0 +1,506 @@
+  /* *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+} */
+
+html, body { width: 100%; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+body{
+    background: linear-gradient(135deg, #ffc87f 0%, #e7fffc 50%, #fff5a7 100%);
+     width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#warli-bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:20px;
+    padding:18px;
+    pointer-events:none;
+    overflow:hidden;
+}
+.warli-box{
+    aspect-ratio:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+}
+
+.warli-box img{
+    position:absolute;
+    object-fit:contain;
+    filter:grayscale(100%);
+    animation:float 8s ease-in-out infinite;
+    user-select:none;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+} 
+
+.navbar-nav { gap: 15px; } 
+/* Nav item initial state */ 
+.navbar-nav .nav-item { opacity: 0; transform: translateY(-35px) scale(0.9); animation: navBounceIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; } /* One-by-one animation */ 
+.navbar-nav .nav-item:nth-child(1) { animation-delay: 0.2s; } 
+.navbar-nav .nav-item:nth-child(2) { animation-delay: 0.4s; } 
+.navbar-nav .nav-item:nth-child(3) { animation-delay: 0.6s; } 
+.navbar-nav .nav-item:nth-child(4) { animation-delay: 0.8s; }
+ /* Slow bounce + fade */ 
+ @keyframes navBounceIn { 0% { opacity: 0; transform: translateY(-35px) scale(0.9); } 
+ 60% { opacity: 1; transform: translateY(8px) scale(1.03); } 80% { transform: translateY(-4px) scale(0.99); } 
+ 100% { opacity: 1; transform: translateY(0) scale(1); } } 
+ /* ========================================= NAV LINK HOVER ========================================= */ 
+ .navbar-nav .nav-link { position: relative; display: inline-block; transition: transform 0.35s ease, color 0.35s ease; } 
+ /* Slide left on hover */ 
+ .navbar-nav .nav-link:hover { transform: translateX(-7px); color: #5c0068;} 
+ /* Optional underline animation */ 
+ .navbar-nav .nav-link::after { content: ""; position: absolute; left: 0; bottom: 2px; width: 0; height: 2px; background: currentColor; transition: width 0.35s ease; } 
+ .navbar-nav .nav-link:hover::after { width: 100%; } 
+ /* ========================================= CENTER LOGO Appears AFTER nav animation ========================================= */ 
+ /* =========================================
+   LOGO + GUITAR ROW
+   ========================================= */
+
+.festival-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+    margin-top: 15px;
+}
+
+/* Center Logo */
+.festival-logo {
+    opacity: 0;
+    transform: translateY(25px) scale(0.95);
+    animation: logoReveal 1.2s ease-out forwards;
+    animation-delay: 1.8s;
+}
+
+.festival-logo img {
+    display: block;
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+}
+/* =========================================
+   GUITARS
+   ========================================= */
+.festival-guitar {
+    width: 150px;
+    height: auto;
+    opacity: 0;
+    /* Wait until logo appears */
+    animation: guitarReveal 1s ease-out forwards;
+    animation-delay: 3s;
+}
+/* Left guitar comes from left */
+.guitar-left {
+    transform: translateX(-100px);
+}
+/* Right guitar comes from right */
+.guitar-right {
+    transform: translateX(100px);
+    
+}
+
+/* =========================================
+   LOGO ANIMATION
+   ========================================= */
+@keyframes logoReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.95);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+/* =========================================
+   GUITAR ANIMATION
+   ========================================= */
+
+@keyframes guitarReveal {
+
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* =========================================
+   MOBILE
+   ========================================= */
+@media (max-width: 768px) {
+
+    .festival-visual {
+        gap: 10px;
+    }
+
+    .festival-guitar {
+        width: 70px;
+    }
+
+    .festival-logo img {
+        width: 200px;
+    }
+
+    .footer-logo{
+        width: 200px;
+    }
+}
+     /* ========================================= MOBILE ========================================= */ 
+     @media (max-width: 991.98px)
+      { .navbar-nav { gap: 5px; text-align: center; }
+      .navbar-nav .nav-link:hover { transform: translateX(-4px); } 
+      .festival-logo img { max-width: 230px; } }
+
+/* =========================================
+   STICK BACKGROUND
+   ========================================= */
+#stick-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+/* Common Stick Style */
+
+.stick {
+    position: absolute;
+    width: 50px;
+    height: auto;
+    opacity: 0;
+    user-select: none;
+    animation: stickReveal 1.5s ease-out forwards;
+}
+
+/* =========================================
+   LEFT SIDE
+   ========================================= */
+.stick-left-1 {
+    right: 1px;
+    top: 1px;
+    animation-delay: 3.8s;
+}
+.stick-left-2 {
+    left: 30px;
+    top: 62%;
+    animation-delay: 4.1s;
+}
+
+/* =========================================
+   RIGHT SIDE
+   ========================================= */
+
+.stick-right-1 {
+    left: 1px;
+    top: 1px;
+    transform: scaleX(-1);
+    animation-delay: 3.8s;
+}
+
+.stick-right-2 {
+    right: 25px;
+    top: 62%;
+    transform: scaleX(-1);
+    animation-delay: 4.1s;
+}
+
+
+/* =========================================
+   STICK APPEAR ANIMATION
+   ========================================= */
+
+@keyframes stickReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.85);
+    }
+
+    60% {
+        opacity: 0.7;
+        transform: translateY(-5px) scale(1.02);
+    }
+
+    100% {
+        opacity: 0.45;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================
+   RIGHT SIDE FLIP
+   ========================================= */
+
+@keyframes stickRevealRight {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scaleX(-1) scale(0.85);
+    }
+
+    60% {
+        opacity: 0.7;
+        transform: translateY(-5px) scaleX(-1) scale(1.02);
+    }
+
+    100% {
+        opacity: 0.45;
+        transform: translateY(0) scaleX(-1) scale(1);
+    }
+
+}
+
+.stick-right-1,
+.stick-right-2 {
+    animation-name: stickRevealRight;
+}
+
+/* =========================================
+   TABLET
+   769px - 991px
+   ========================================= */
+
+@media (min-width: 769px) and (max-width: 991.98px) {
+
+    .stick {
+        width: 42px;
+    }
+
+    /* Left top */
+    .stick-left-1 {
+        right: 8px;
+        top: 5px;
+    }
+
+    /* Left bottom */
+    .stick-left-2 {
+        left: 18px;
+        top: 60%;
+    }
+
+    /* Right top */
+    .stick-right-1 {
+        left: 8px;
+        top: 5px;
+    }
+
+    /* Right bottom */
+    .stick-right-2 {
+        right: 18px;
+        top: 60%;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   Up to 768px
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .stick {
+        width: 30px;
+    }
+
+    /* Left top */
+    .stick-left-1 {
+        right: 4px;
+        top: 5px;
+    }
+
+    /* Left bottom */
+    .stick-left-2 {
+        left: 8px;
+        top: 40%;
+    }
+
+    /* Right top */
+    .stick-right-1 {
+        left: 4px;
+        top: 5px;
+    }
+
+    /* Right bottom */
+    .stick-right-2 {
+        right: 8px;
+        top: 43%;
+    }
+    
+}
+
+
+
+/* =========================================
+   CUSTOM MOBILE MENU ICON
+   ========================================= */
+
+.navbar-toggler {
+    border: none;
+    padding: 0px;
+    background: transparent;
+    box-shadow: none !important;
+
+}
+
+.menu-icon {
+    display: flex;
+    width: fit-content;
+    height: 45px;
+    object-fit: contain;
+    display: block;
+    transform: translateY(-35px) scale(0.9); 
+    animation: navBounceIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+}
+
+/* Remove Bootstrap focus border */
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
+/* Only show custom menu button on mobile */
+@media (min-width: 992px) {
+    .navbar-toggler {
+        display: none;
+    }
+}
+
+.main-content {
+    opacity: 0;
+    transform: translateY(-35px) scale(0.9);
+    animation: navBounceIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 3.8s;
+}
+.footer-content{
+    opacity: 0;
+    transform: translateY(-35px) scale(0.9);
+    animation: navBounceIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 3.8s;
+}
+
+
+
+
+.count-box,
+.venue-box {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(100, 60, 30, 0.15);
+    box-shadow: 0 8px 20px rgba(70, 40, 15, 0.08);
+}
+
+
+.count-box span {
+    color: #633318;
+}
+
+.date-box small,
+.count-box small,
+.venue-box small {
+    color: #946b4c;
+    letter-spacing: 1px;
+}
+
+.venue-box {
+    color: #59351f;
+}
+
+.form-control, .form-select{
+    background: none;
+    border: 1px solid rgb(102, 66, 0);
+}
+.form-control:focus{
+    background: none;
+    border: 3px solid rgb(0, 92, 32);
+}
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   IMAGE CROP MODAL
+========================================= */
+
+.crop-container {
+    width: 100%;
+    height: 500px;
+    background: #111;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.crop-container img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .crop-container {
+        height: 360px;
+    }
+
+}
+
+
+
+
+
+
+.card {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/images/card_bg.webp") center / cover no-repeat;
+    opacity: 0.10;
+    z-index: 0;
+}
+
+.card > * {
+    position: relative;
+    z-index: 1;
+}
