@@ -601,7 +601,7 @@ body{
             rgba(255, 255, 255, 0.45) 50%,
             rgba(19, 136, 8, 0.103) 100%
         ),
-        url("/images/flag.png") center / cover no-repeat;
+        url("https://dooarsmonsoon.github.io/festival/images/flag.png") center / cover no-repeat;
 
     opacity: 0.50;
     z-index: 0;
