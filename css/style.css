@@ -52,24 +52,97 @@ body{
 
 } 
 
-.navbar-nav { gap: 15px; } 
-/* Nav item initial state */ 
-.navbar-nav .nav-item { opacity: 0; transform: translateY(-35px) scale(0.9); animation: navBounceIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; } /* One-by-one animation */ 
-.navbar-nav .nav-item:nth-child(1) { animation-delay: 0.2s; } 
-.navbar-nav .nav-item:nth-child(2) { animation-delay: 0.4s; } 
-.navbar-nav .nav-item:nth-child(3) { animation-delay: 0.6s; } 
-.navbar-nav .nav-item:nth-child(4) { animation-delay: 0.8s; }
- /* Slow bounce + fade */ 
- @keyframes navBounceIn { 0% { opacity: 0; transform: translateY(-35px) scale(0.9); } 
- 60% { opacity: 1; transform: translateY(8px) scale(1.03); } 80% { transform: translateY(-4px) scale(0.99); } 
- 100% { opacity: 1; transform: translateY(0) scale(1); } } 
- /* ========================================= NAV LINK HOVER ========================================= */ 
- .navbar-nav .nav-link { position: relative; display: inline-block; transition: transform 0.35s ease, color 0.35s ease; } 
- /* Slide left on hover */ 
- .navbar-nav .nav-link:hover { transform: translateX(-7px); color: #5c0068;} 
- /* Optional underline animation */ 
- .navbar-nav .nav-link::after { content: ""; position: absolute; left: 0; bottom: 2px; width: 0; height: 2px; background: currentColor; transition: width 0.35s ease; } 
- .navbar-nav .nav-link:hover::after { width: 100%; } 
+.navbar-nav {
+    gap: 15px;
+}
+
+/* Nav item initial state */
+.navbar-nav .nav-item {
+    opacity: 0;
+    transform: translateY(-35px) scale(0.9);
+    animation: navBounceIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* One-by-one animation */
+.navbar-nav .nav-item:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.navbar-nav .nav-item:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.navbar-nav .nav-item:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.navbar-nav .nav-item:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.navbar-nav .nav-item:nth-child(5) {
+    animation-delay: 1.0s;
+}
+
+.navbar-nav .nav-item:nth-child(6) {
+    animation-delay: 1.2s;
+}
+
+
+/* Bounce + Fade */
+@keyframes navBounceIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-35px) scale(0.9);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(8px) scale(1.03);
+    }
+
+    80% {
+        transform: translateY(-4px) scale(0.99);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   NAV LINK HOVER
+========================================= */
+
+.navbar-nav .nav-link {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.35s ease, color 0.35s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    transform: translateX(-7px);
+    color: #5c0068;
+}
+
+
+/* Underline animation */
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.35s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
  /* ========================================= CENTER LOGO Appears AFTER nav animation ========================================= */ 
  /* =========================================
    LOGO + GUITAR ROW
@@ -504,3 +577,40 @@ body{
     position: relative;
     z-index: 1;
 }
+
+
+/* =========================================
+   HEADER INDIAN FLAG BACKGROUND
+   ========================================= */
+
+.site-header {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Flag background only */
+.site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 153, 51, 0.582) 0%,
+            rgba(255, 255, 255, 0.45) 50%,
+            rgba(19, 136, 8, 0.103) 100%
+        ),
+        url("/images/flag.png") center / cover no-repeat;
+
+    opacity: 0.50;
+    z-index: 0;
+}
+
+/* Keep header content fully visible */
+.site-header > * {
+    position: relative;
+    z-index: 1;
+    
+}
+
