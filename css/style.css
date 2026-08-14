@@ -607,10 +607,4 @@ body{
     z-index: 0;
 }
 
-/* Keep header content fully visible */
-.site-header > * {
-    position: relative;
-    z-index: 1;
-    
-}
 
