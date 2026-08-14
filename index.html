@@ -380,6 +380,30 @@
             color: #666;
         }
 
+
+    .update-list-item {
+    display: block;
+    padding: 10px 12px;
+    background: rgba(253, 141, 13, 0.06);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all .25s ease;
+}
+
+.update-list-item:last-child {
+    border-bottom: 0;
+}
+
+.update-list-item:hover {
+    background: rgba(13, 110, 253, 0.06);
+    transform: translateX(5px);
+}
+
+.update-list-item:hover .update-list-title {
+    color: #0d6efd;
+}
+
         @media (max-width: 768px) {
             .performer-slide-overlay .slide-name {
                 font-size: 1.1rem;
@@ -804,7 +828,8 @@ function loadPerformerSlider() {
 
             snapshot.forEach((child) => {
                 const data = child.val();
-                if (data && data.active === true) {
+                //if (data && data.active === true) {
+                if (data && data.active === true && data.type === "music") {
                     performers.push({
                         ...data,
                         _key: child.key
@@ -1075,22 +1100,41 @@ function renderLatestUpdates(updates, container) {
         const typeBadge = getTypeBadge(update.type);
         const formattedDate = formatDate(update.createdAt);
 
+        // html += `
+        //     <div class="update-list-item">
+        //         <div class="update-list-meta">
+        //             ${typeBadge}
+        //             <span>${formattedDate}</span>
+        //         </div>
+        //         <div class="update-list-title">
+        //             ${escapeHtml(update.title || 'Untitled')}
+        //         </div>
+        //         ${update.description ? `
+        //             <div class="update-list-description">
+        //                 ${escapeHtml(update.description)}
+        //             </div>
+        //         ` : ''}
+        //     </div>
+        // `;
+
         html += `
-            <div class="update-list-item">
-                <div class="update-list-meta">
-                    ${typeBadge}
-                    <span>${formattedDate}</span>
-                </div>
-                <div class="update-list-title">
-                    ${escapeHtml(update.title || 'Untitled')}
-                </div>
-                ${update.description ? `
-                    <div class="update-list-description">
-                        ${escapeHtml(update.description)}
-                    </div>
-                ` : ''}
+    <a href="update.html" class="update-list-item d-block text-decoration-none text-dark">
+        <div class="update-list-meta">
+            ${typeBadge}
+            <span>${formattedDate}</span>
+        </div>
+
+        <div class="update-list-title">
+            ${escapeHtml(update.title || 'Untitled')}
+        </div>
+
+        ${update.description ? `
+            <div class="update-list-description">
+                ${escapeHtml(update.description)}
             </div>
-        `;
+        ` : ''}
+    </a>
+`;
     });
 
     container.innerHTML = html;

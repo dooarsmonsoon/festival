@@ -169,6 +169,8 @@
         .performer-list-actions {
             flex-shrink: 0;
             margin-left: 10px;
+            display: flex;
+            gap: 4px;
         }
 
         .performer-list-actions .btn {
@@ -224,6 +226,16 @@
         .performer-list-count {
             font-size: .85rem;
             color: #666;
+        }
+
+        .editing-badge {
+            background: #ffc107;
+            color: #000;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 600;
+            display: inline-block;
         }
 
     </style>
@@ -397,6 +409,20 @@
 
             <div class="card-body p-2 p-md-5">
 
+                <!-- Edit Mode Indicator -->
+                <div id="editModeIndicator" class="mb-3" style="display:none;">
+                    <div class="alert alert-warning d-flex align-items-center">
+                        <i class="bi bi-pencil-square me-2 fs-5"></i>
+                        <div>
+                            <strong>Editing Mode:</strong>
+                            <span id="editPerformerNameDisplay">Performer</span>
+                            <span class="badge bg-warning text-dark ms-2">EDITING</span>
+                        </div>
+                        <button type="button" id="cancelEditBtn" class="btn btn-outline-danger btn-sm ms-auto">
+                            <i class="bi bi-x-circle me-1"></i> Cancel Edit
+                        </button>
+                    </div>
+                </div>
 
                 <form id="performerForm"
                       novalidate>
@@ -558,9 +584,11 @@
                                     Cafe Stall
                                 </option>
 
-                                <option value="traditional-dance">
-                                    Traditional Dance
+                                <option value="other">
+                                    Other
                                 </option>
+
+
                             </select>
 
                             <div class="invalid-feedback">
@@ -1238,6 +1266,8 @@ let deleteModal = null;
 
 let performerToDelete = null;
 
+let editKey = null; // Track the key of performer being edited
+
 
 // ============================================================
 // DOM ELEMENTS
@@ -1343,6 +1373,17 @@ const performerListContainer =
 
 const performerCountNumber =
     document.getElementById("performerCountNumber");
+
+
+// Edit Mode Elements
+const editModeIndicator =
+    document.getElementById("editModeIndicator");
+
+const editPerformerNameDisplay =
+    document.getElementById("editPerformerNameDisplay");
+
+const cancelEditBtn =
+    document.getElementById("cancelEditBtn");
 
 
 // ============================================================
@@ -2323,7 +2364,162 @@ performerDescription.addEventListener(
 
 
 // ============================================================
-// SUBMIT PERFORMER
+// OPEN EDIT MODAL / LOAD PERFORMER DATA
+// ============================================================
+
+function openEditModal(key) {
+    if (!key) return;
+    
+    // Show loading state
+    showFormAlert(
+        `
+        <i class="bi bi-hourglass-split me-2"></i>
+        Loading performer data...
+        `,
+        "info"
+    );
+    
+    firebase.database()
+        .ref(`performer/${key}`)
+        .once("value")
+        .then((snapshot) => {
+            const data = snapshot.val();
+            if (!data) {
+                showFormAlert(
+                    `
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Performer not found.
+                    `,
+                    "danger"
+                );
+                return;
+            }
+            
+            // Clear any existing edit state first
+            resetEditMode();
+            
+            // Populate the form with existing data
+            performerName.value = data.name || '';
+            performerDescription.value = data.description || '';
+            performerType.value = data.type || '';
+            performerGenre.value = data.genre || '';
+            performerFestival.value = data.festival || '';
+            performerActive.checked = data.active === true;
+            
+            // Update description counter
+            descriptionCount.textContent = `${(data.description || '').length} / 1000`;
+            
+            // Show the existing image
+            if (data.image) {
+                imagePreview.src = data.image;
+                imagePreview.style.display = "block";
+                uploadPlaceholder.style.display = "none";
+                
+                // Store the existing image URL so we don't re-upload if not changed
+                imagePreview.dataset.existingUrl = data.image;
+                
+                imageInfo.innerHTML = `
+                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                    <strong>Existing image loaded</strong>
+                    &nbsp; • &nbsp;
+                    <a href="${escapeHtml(data.image)}" target="_blank" class="text-primary">
+                        <i class="bi bi-eye"></i> View
+                    </a>
+                `;
+            } else {
+                imagePreview.src = '';
+                imagePreview.style.display = "none";
+                uploadPlaceholder.style.display = "block";
+                imageInfo.innerHTML = '';
+            }
+            
+            // Store the performer key for update
+            editKey = key;
+            performerForm.dataset.editKey = key;
+            
+            // Show edit mode indicator
+            editModeIndicator.style.display = "block";
+            editPerformerNameDisplay.textContent = data.name || 'Unnamed';
+            
+            // Change button text to "Update"
+            submitBtn.innerHTML = `
+                <i class="bi bi-pencil-square me-2"></i>
+                Update Performer
+            `;
+            
+            // Show success message
+            showFormAlert(
+                `
+                <i class="bi bi-pencil-square me-2 text-warning"></i>
+                <strong>Editing:</strong> ${escapeHtml(data.name || 'Unnamed')}
+                <br>
+                <small class="text-muted">Make your changes and click "Update Performer" to save.</small>
+                `,
+                "warning"
+            );
+            
+            // Scroll to form
+            document.querySelector('.performer-card').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+        })
+        .catch((error) => {
+            console.error("Error loading performer:", error);
+            showFormAlert(
+                `
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Error:</strong> Failed to load performer data.
+                `,
+                "danger"
+            );
+        });
+}
+
+
+// ============================================================
+// RESET EDIT MODE
+// ============================================================
+
+function resetEditMode() {
+    // Remove the edit key
+    editKey = null;
+    delete performerForm.dataset.editKey;
+    
+    // Reset image preview if it was from existing
+    if (imagePreview.dataset.existingUrl) {
+        delete imagePreview.dataset.existingUrl;
+    }
+    
+    // Hide edit mode indicator
+    editModeIndicator.style.display = "none";
+    editPerformerNameDisplay.textContent = '';
+    
+    // Reset button text
+    submitBtn.innerHTML = `
+        <i class="bi bi-cloud-upload-fill me-2"></i>
+        Upload & Save Performer
+    `;
+}
+
+
+// ============================================================
+// CANCEL EDIT
+// ============================================================
+
+if (cancelEditBtn) {
+    cancelEditBtn.addEventListener("click", function() {
+        if (confirm("Cancel editing? All unsaved changes will be lost.")) {
+            resetForm();
+            hideFormAlert();
+        }
+    });
+}
+
+
+// ============================================================
+// SUBMIT PERFORMER (CREATE or UPDATE)
 // ============================================================
 
 performerForm.addEventListener(
@@ -2370,7 +2566,11 @@ performerForm.addEventListener(
         );
 
 
-        if (!croppedImageFile) {
+        // Check if editing and no new image but existing image exists
+        const isEditing = editKey !== null;
+        const hasExistingImage = imagePreview.dataset.existingUrl !== undefined;
+
+        if (!croppedImageFile && !hasExistingImage) {
 
             showFormAlert(
                 `
@@ -2431,7 +2631,7 @@ performerForm.addEventListener(
 
         submitBtn.innerHTML = `
             <span class="spinner-border spinner-border-sm me-2"></span>
-            Uploading...
+            ${isEditing ? 'Updating...' : 'Uploading...'}
         `;
 
 
@@ -2441,7 +2641,7 @@ performerForm.addEventListener(
 
         updateProgress(
             0,
-            "Starting..."
+            isEditing ? "Starting update..." : "Starting..."
         );
 
 
@@ -2479,35 +2679,46 @@ performerForm.addEventListener(
 
 
             // ====================================================
-            // CREATE FIREBASE ID
+            // CHECK IF EDITING OR CREATING
             // ====================================================
 
-            const performerRef =
-                firebase.database()
-                    .ref("performer")
-                    .push();
+            let performerRef;
+            let performerId;
 
-
-            const performerId =
-                performerRef.key;
-
-
-            updateProgress(
-                5,
-                "Preparing performer..."
-            );
-
+            if (isEditing) {
+                // EDITING EXISTING PERFORMER
+                performerId = editKey;
+                performerRef = firebase.database().ref(`performer/${editKey}`);
+                
+                updateProgress(5, "Preparing update...");
+            } else {
+                // CREATING NEW PERFORMER
+                performerRef = firebase.database().ref("performer").push();
+                performerId = performerRef.key;
+                
+                updateProgress(5, "Preparing performer...");
+            }
 
             // ====================================================
-            // UPLOAD CROPPED IMAGE
+            // UPLOAD CROPPED IMAGE (ONLY IF NEW IMAGE SELECTED)
             // ====================================================
 
-            const imageUrl =
-                await uploadPerformerImage(
+            let imageUrl;
+
+            // Check if a new image was cropped
+            if (croppedImageFile) {
+                // Upload the new image
+                imageUrl = await uploadPerformerImage(
                     croppedImageFile,
                     performerId,
                     password
                 );
+            } else if (isEditing && imagePreview.dataset.existingUrl) {
+                // Keep existing image if no new image was uploaded
+                imageUrl = imagePreview.dataset.existingUrl;
+            } else {
+                throw new Error("Please select an image for the performer.");
+            }
 
 
             // ====================================================
@@ -2515,96 +2726,53 @@ performerForm.addEventListener(
             // ====================================================
 
             const performerData = {
-
-                id:
-                    performerId,
-
-                name:
-                    name,
-
-                description:
-                    description,
-
-                type:
-                    type,
-
-                genre:
-                    genre,
-
-                festival:
-                    festival,
-
-                image:
-                    imageUrl,
-
-                active:
-                    active,
-
-                createdAt:
-                    firebase.database
-                        .ServerValue
-                        .TIMESTAMP,
-
-                updatedAt:
-                    firebase.database
-                        .ServerValue
-                        .TIMESTAMP
-
+                id: performerId,
+                name: name,
+                description: description,
+                type: type,
+                genre: genre,
+                festival: festival,
+                image: imageUrl,
+                active: active,
+                updatedAt: firebase.database.ServerValue.TIMESTAMP
             };
 
+            // If creating new, add createdAt
+            if (!isEditing) {
+                performerData.createdAt = firebase.database.ServerValue.TIMESTAMP;
+            }
 
-            updateProgress(
-                95,
-                "Saving performer information..."
-            );
-
+            updateProgress(95, isEditing ? "Updating performer information..." : "Saving performer information...");
 
             // ====================================================
-            // SAVE FIREBASE
+            // SAVE TO FIREBASE
             // ====================================================
 
-            await performerRef.set(
-                performerData
-            );
+            await performerRef.set(performerData);
 
 
             // ====================================================
             // COMPLETE
             // ====================================================
 
-            updateProgress(
-                100,
-                "Performer added successfully!"
-            );
-
+            updateProgress(100, isEditing ? "Performer updated successfully!" : "Performer added successfully!");
 
             showFormAlert(
                 `
                 <i class="bi bi-check-circle-fill me-2"></i>
-
-                <strong>Performer added successfully!</strong>
-
+                <strong>${isEditing ? 'Performer updated' : 'Performer added'} successfully!</strong>
                 `,
                 "success"
             );
 
-
             // Reload performer list
             loadPerformerList();
 
-
-            // ====================================================
-            // RESET AFTER SUCCESS
-            // ====================================================
-
+            // Reset form after success
             setTimeout(
                 () => {
-
                     resetForm();
-
-                    progressBox.style.display =
-                        "none";
-
+                    progressBox.style.display = "none";
                 },
                 1500
             );
@@ -2613,7 +2781,7 @@ performerForm.addEventListener(
         } catch (error) {
 
             console.error(
-                "Add performer error:",
+                "Performer operation error:",
                 error
             );
 
@@ -2964,6 +3132,14 @@ function renderPerformerList(performers) {
                 </div>
                 <div class="performer-list-actions">
                     <button 
+                        class="btn btn-outline-primary btn-sm edit-performer-btn" 
+                        data-key="${performer._key}"
+                        data-name="${escapeHtml(performer.name)}"
+                        title="Edit performer"
+                    >
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button 
                         class="btn btn-outline-danger btn-sm delete-performer-btn" 
                         data-key="${performer._key}"
                         data-name="${escapeHtml(performer.name)}"
@@ -2977,6 +3153,15 @@ function renderPerformerList(performers) {
     });
 
     performerListContainer.innerHTML = html;
+
+    // Add event listeners to edit buttons
+    document.querySelectorAll('.edit-performer-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const key = this.getAttribute('data-key');
+            openEditModal(key);
+        });
+    });
 
     // Add event listeners to delete buttons
     document.querySelectorAll('.delete-performer-btn').forEach(btn => {
@@ -3156,6 +3341,9 @@ resetBtn.addEventListener(
 // ============================================================
 
 function resetForm() {
+
+    // Reset edit mode first
+    resetEditMode();
 
     performerForm.reset();
 
