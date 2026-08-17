@@ -8,6 +8,7 @@
 
     <title>Dooars Monsoon Music & Cultural Festival</title>
 
+
     <!-- Bootstrap 5.3 -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -264,8 +265,10 @@
             left: 0;
             right: 0;
             padding: 20px 24px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.75));
-            color: #fff;
+            /* background: linear-gradient(transparent, rgba(10, 10, 10, 0.904)); */
+            background-color: #fdfdfd63;
+            color: linear-gradient(transparent, rgb(0, 255, 255));
+            letter-spacing: 2px;
         }
 
         .performer-slide-overlay .slide-name {
@@ -281,28 +284,35 @@
 
         /* Slider Navigation Dots */
         .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    min-height: 28px;
+    position: relative;
+    z-index: 20;
+}
 
-        .slider-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ccc;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            transition: all .3s ease;
-        }
+.slider-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #999;
+    cursor: pointer;
+    transition: all .3s ease;
+}
 
-        .slider-dot.active {
-            background: #0d6efd;
-            width: 28px;
-            border-radius: 5px;
-        }
+.slider-dot.active {
+    width: 28px;
+    min-width: 28px;
+    background: #0d6efd;
+    border-radius: 6px;
+}
 
         .slider-dot:hover {
             background: #0d6efd;
@@ -427,6 +437,247 @@
                 max-width: 100%;
             }
         }
+
+
+
+
+
+
+        /* =========================================
+   FESTIVAL BANNER SLIDER
+========================================= */
+
+.festival-banner-section {
+    width: 100%;
+    margin: 0 auto 30px;
+    padding: 0 12px;
+}
+
+.festival-banner {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    border-radius: 0 0 28px 28px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .15);
+}
+
+/* Banner image */
+
+.festival-banner-img {
+    width: 100%;
+    height: 420px;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    filter: brightness(.72);
+
+    transition: transform 6s ease;
+}
+
+/* Ken Burns effect */
+
+.festival-banner .carousel-item.active .festival-banner-img {
+    transform: scale(1.05);
+}
+
+/* Dark gradient */
+
+.festival-banner .carousel-item::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.233) 0%,
+            rgba(0, 0, 0, 0.158) 45%,
+            rgba(0, 0, 0, .05) 100%
+        );
+
+    pointer-events: none;
+}
+
+/* Caption */
+
+.festival-banner-caption {
+    position: absolute;
+
+    left: 8%;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    max-width: 650px;
+
+    color: #fff;
+}
+
+.festival-banner-caption h1 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 500;
+
+    margin-bottom: 12px;
+
+    line-height: 1.1;
+
+    text-shadow:
+        0 4px 15px rgba(0, 0, 0, .5);
+}
+
+.festival-banner-caption p {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+
+    margin-bottom: 22px;
+
+    letter-spacing: .5px;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, .5);
+}
+
+/* Buttons */
+
+.festival-banner-caption .btn {
+    border-radius: 50px;
+
+    padding: 10px 24px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, .2);
+
+    transition: all .3s ease;
+}
+
+.festival-banner-caption .btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Indicators */
+
+.festival-banner .carousel-indicators {
+    z-index: 5;
+
+    margin-bottom: 18px;
+}
+
+.festival-banner .carousel-indicators button {
+    width: 30px;
+    height: 5px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    opacity: .6;
+
+    transition: all .3s ease;
+}
+
+.festival-banner .carousel-indicators button.active {
+    width: 50px;
+    opacity: 1;
+}
+
+/* Navigation arrows */
+
+.festival-banner .carousel-control-prev,
+.festival-banner .carousel-control-next {
+    z-index: 5;
+
+    width: 8%;
+
+    opacity: .8;
+}
+
+.festival-banner .carousel-control-prev-icon,
+.festival-banner .carousel-control-next-icon {
+    width: 42px;
+    height: 42px;
+
+    padding: 10px;
+
+    border-radius: 50%;
+
+    background-color: rgba(0, 0, 0, .35);
+
+    backdrop-filter: blur(5px);
+
+    background-size: 45%;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .festival-banner-section {
+        padding: 0;
+        margin-bottom: 22px;
+    }
+
+    .festival-banner {
+        border-radius: 0 0 20px 20px;
+    }
+
+    .festival-banner-img {
+        height: 360px;
+    }
+
+    .festival-banner-caption {
+        left: 7%;
+        right: 7%;
+        max-width: none;
+    }
+
+    .festival-banner-caption h1 {
+        font-size: 2rem;
+    }
+
+    .festival-banner-caption p {
+        font-size: .95rem;
+    }
+
+    .festival-banner-caption .btn {
+        font-size: .85rem;
+        padding: 8px 18px;
+    }
+
+    .festival-banner .carousel-control-prev-icon,
+    .festival-banner .carousel-control-next-icon {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .festival-banner-img {
+        height: 330px;
+    }
+
+    .festival-banner-caption h1 {
+        font-size: 1.7rem;
+    }
+
+    .festival-banner-caption p {
+        font-size: .85rem;
+    }
+
+}
     </style>
 </head>
 
@@ -451,6 +702,8 @@
 
 <!-- HEADER --> 
  <div id="site-header"></div>
+
+
 
 <!-- main-content -->
 <!-- FESTIVAL COUNTDOWN -->
@@ -493,6 +746,118 @@
         </div>
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+    
+ <!-- =========================================
+     FESTIVAL BANNER SLIDER
+========================================= -->
+
+<section class="festival-banner-section mt-2">
+    <div id="festivalBannerCarousel"
+         class="carousel slide festival-banner"
+         data-bs-ride="carousel"
+         data-bs-interval="5000">
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button"
+                    data-bs-target="#festivalBannerCarousel"
+                    data-bs-slide-to="0"
+                    class="active"
+                    aria-current="true"></button>
+
+            <button type="button"
+                    data-bs-target="#festivalBannerCarousel"
+                    data-bs-slide-to="1"></button>
+
+            <button type="button"
+                    data-bs-target="#festivalBannerCarousel"
+                    data-bs-slide-to="2"></button>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+
+            <!-- Banner 1 -->
+            <div class="carousel-item active">
+                <img src="images/banner1.png"
+                     class="festival-banner-img"
+                     alt="Dooars Monsoon Music & Cultural Festival">
+
+                <div class="festival-banner-caption">
+                    <h1>Dooars Monsoon Music & Cultural Festival</h1>
+                    <p>Music • Culture • Art • Food • Celebration</p>
+                    <a href="participate.html"
+                       class="btn btn-warning fw-bold px-4">
+                        Participate Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Banner 2 -->
+            <div class="carousel-item">
+                <img src="images/banner2.png"
+                     class="festival-banner-img"
+                     alt="Festival Performers">
+
+                <div class="festival-banner-caption">
+                    <h1>Experience Live Music</h1>
+                    <p>Discover amazing artists and performers</p>
+                    <a href="performer.html"
+                       class="btn btn-light fw-bold px-4">
+                        View Performers
+                    </a>
+                </div>
+            </div>
+
+            <!-- Banner 3 -->
+            <div class="carousel-item">
+                <img src="images/banner3.png"
+                     class="festival-banner-img"
+                     alt="Dooars Festival">
+
+                <div class="festival-banner-caption">
+                    <h1>28 • 29 • 30 August 2026</h1>
+                    <p>21 Basti, Rajabhatkhawa, Alipurduar</p>
+                    <a href="about-us.html"
+                       class="btn btn-warning fw-bold px-4">
+                        Explore Festival
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Previous -->
+        <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#festivalBannerCarousel"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <!-- Next -->
+        <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#festivalBannerCarousel"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
+    </div>
+</section>
 
     <!-- ============================================= -->
     <!-- ROW 1: LATEST UPDATES + IMPORTANT LINKS       -->
@@ -599,7 +964,7 @@
 
                 <div class="card-body-custom">
                     <div id="performerSliderContainer">
-                        <div class="performer-slider-container" id="performerSlider">
+                        <div id="performerSlider">
                             <div class="performer-slider-empty">
                                 <i class="bi bi-music-note"></i>
                                 <p class="mb-0">Loading performers...</p>
@@ -907,19 +1272,22 @@ function renderSlider(performers, container) {
     });
 
     container.innerHTML = `
-        <div class="performer-slider-container">
-            ${slidesHtml}
-            <button class="slider-control prev" aria-label="Previous">
-                <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="slider-control next" aria-label="Next">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-        </div>
-        <div class="slider-dots">
-            ${dotsHtml}
-        </div>
-    `;
+    <div class="performer-slider-container">
+        ${slidesHtml}
+
+        <button class="slider-control prev" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <button class="slider-control next" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="slider-dots">
+        ${dotsHtml}
+    </div>
+`;
 
     // Add event listeners
     const prevBtn = container.querySelector('.slider-control.prev');
